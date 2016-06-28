@@ -1,2 +1,4 @@
-testfiles/*
 .DS_Store
+
+testfiles/*
+entrylinks.txt
