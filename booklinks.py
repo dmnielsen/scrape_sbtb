@@ -3,7 +3,7 @@ import calendar as cal
 import datetime as dt
 from bs4 import BeautifulSoup
 import re
-import requests
+import sqlite3 as sql
 
 def define_month_abbr():
     # global define dict to convert month_abbr to integer with leading zero
@@ -23,6 +23,13 @@ if __name__ == '__main__':
     define_month_abbr()
     
     linkfile = open('entrylinks.txt','w')
+    
+    conn = sql.connect('sbtb.db',timeout=10)
+    cur = conn.cursor()
+    
+    cur.execute('''CREATE TABLE IF NOT EXISTS Reviews (\
+    Id INTEGER UNIQUE, Date TEXT, Link TEXT, Reviewer TEXT,\
+    Grade TEXT, Title TEXT, Author TEXT, Pub_year INTEGER, Genres TEXT);''')
     
     #baseurl = 'http://smartbitchestrashybooks.com/review/book/page/'
     baseurl = os.getcwd()+'/testfiles/review_index'  # for testing
@@ -49,3 +56,4 @@ if __name__ == '__main__':
             date = format_date(x[0])
             
     linkfile.close()
+    cur.close()
