@@ -44,7 +44,9 @@ if __name__ == '__main__':
     
     baseurl = 'http://smartbitchestrashybooks.com/review/book/page/'
     
-    for i in range(0,2): #60 total pages: 27 June 2016
+    # hardwired in on num. of pages, there is definitely 
+    # a better way to do this
+    for i in range(0,60): #60 total pages: 06 July 2016
 
         url = baseurl+str(i)+'/'
         html = urllib.request.urlopen(url).read()
