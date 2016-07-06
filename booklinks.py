@@ -65,7 +65,10 @@ if __name__ == '__main__':
             
             cur.execute('INSERT INTO Reviews (id,Review_date,link)\
             VALUES (?, ?, ?)',(start,date,link))
-            
-        conn.commit()
-        
+
+        # only commit every 5 indicies to speed up process
+        if i%5 == 0:    
+            conn.commit()
+
+    conn.commit()  # commit anything still outstanding
     cur.close()
