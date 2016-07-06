@@ -31,7 +31,7 @@ if __name__ == '__main__':
     Grade TEXT, Title TEXT, Author TEXT, Pub_year INTEGER, Genres TEXT);''')
     
     start = 0
-    cur.execute('SELECT max(id) FROM Reviews')
+    cur.execute('SELECT max(id) FROM Reviews;')
     
     try:
         row = cur.fetchone()
