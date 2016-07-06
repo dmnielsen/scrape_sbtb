@@ -1,8 +1,9 @@
 import sys,os
+import re
 import calendar as cal
 import datetime as dt
 from bs4 import BeautifulSoup
-import re
+import urllib.request
 import sqlite3 as sql
 
 def define_month_abbr():
@@ -21,10 +22,8 @@ def format_date(d):
 if __name__ == '__main__':
     
     define_month_abbr()
-    
-    linkfile = open('entrylinks.txt','w')
-    
-    conn = sql.connect('sbtb.db',timeout=10)
+        
+    conn = sql.connect('sbtb.db',timeout=100)
     cur = conn.cursor()
     
     cur.execute('''CREATE TABLE IF NOT EXISTS Reviews (\
@@ -43,22 +42,15 @@ if __name__ == '__main__':
         start = 0
         row = None
     
-    #baseurl = 'http://smartbitchestrashybooks.com/review/book/page/'
-    baseurl = os.getcwd()+'/testfiles/review_index'  # for testing
-    
+    baseurl = 'http://smartbitchestrashybooks.com/review/book/page/'
     
     for i in range(0,2): #60 total pages: 27 June 2016
 
-        fn = baseurl+str(i)+'.html'  # for testing
-        fhand = open(fn)  # for testing
+        url = baseurl+str(i)+'/'
+        html = urllib.request.urlopen(url).read()
     
-        #fn = baseurl+str(i)+'/'
-        #r = requests.get(fn)
-    
-        soup = BeautifulSoup(fhand,'lxml')
-        
-        fhand.close() # for testing
-    
+        soup = BeautifulSoup(html,'lxml')
+           
         for entry in soup.find_all('header',{'class':'entry-header book'}):
             start += 1
             
@@ -72,6 +64,6 @@ if __name__ == '__main__':
             cur.execute('INSERT INTO Reviews (id,Review_date,link)\
             VALUES (?, ?, ?)',(start,date,link))
             
-    linkfile.close()
-    conn.commit()
+        conn.commit()
+        
     cur.close()
