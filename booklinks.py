@@ -1,5 +1,6 @@
 import sys,os
 import re
+import time
 import calendar as cal
 import datetime as dt
 from bs4 import BeautifulSoup
@@ -47,7 +48,7 @@ if __name__ == '__main__':
     # hardwired in on num. of pages, there is definitely 
     # a better way to do this
     for i in range(0,60): #60 total pages: 06 July 2016
-
+        if i%5 == 0: print(i)
         url = baseurl+str(i)+'/'
         html = urllib.request.urlopen(url).read()
     
@@ -61,7 +62,12 @@ if __name__ == '__main__':
             
             meta_info = entry.p.text
             x = re.findall('· ([A-Za-z]+ [0-9,]+ [0-9]+) .+ ·',meta_info)
-            date = format_date(x[0])
+            try:
+                date = format_date(x[0])
+            except IndexError:
+                date = ' '
+                print('Error',meta_info)
+                
             
             cur.execute('INSERT INTO Reviews (id,Review_date,link)\
             VALUES (?, ?, ?)',(start,date,link))
@@ -69,6 +75,7 @@ if __name__ == '__main__':
         # only commit every 5 indicies to speed up process
         if i%5 == 0:    
             conn.commit()
+        time.sleep(1)
 
     conn.commit()  # commit anything still outstanding
     cur.close()
