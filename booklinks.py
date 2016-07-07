@@ -47,7 +47,7 @@ if __name__ == '__main__':
     
     # hardwired in on num. of pages, there is definitely 
     # a better way to do this
-    for i in range(0,60): #60 total pages: 06 July 2016
+    for i in range(0,61): #60 total pages: 06 July 2016
         if i%5 == 0: print(i)
         url = baseurl+str(i)+'/'
         html = urllib.request.urlopen(url).read()
