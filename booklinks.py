@@ -65,6 +65,8 @@ if __name__ == '__main__':
             try:
                 date = format_date(x[0])
             except IndexError:
+                # Probably and issue where post is updated
+                # Set date to a blank value
                 date = ' '
                 print('Error',meta_info)
                 
