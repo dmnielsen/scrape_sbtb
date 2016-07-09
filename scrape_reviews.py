@@ -25,4 +25,7 @@ if __name__ == '__main__':
     links = glob.glob('testfiles/book*')
     
     for link in links:
-        pass
+        review = BeautifulSoup(open(link,'r'),'lxml').article
+        
+        grade = review.find('h1',{'class':'grade'}).text
+        reviewer = review.find('div',{'class':'entry-meta'}).a.text
