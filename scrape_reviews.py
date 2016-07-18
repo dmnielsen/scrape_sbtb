@@ -35,8 +35,16 @@ if __name__ == '__main__':
             genres = [genre.text for genre in review.find(
             'div',{'class':'callout'}).find_all('a')[1:]]
             pub_info = review.find('div',{'class':'featured'}).find(
-            'p',{'class':'pub'}).text.split()
-            pub_year = pub_info[pub_info.index('·')-1]
+            'p',{'class':'pub'}).text
+            pub_years = re.findall(r'\d{4}',pub_info)
+            if len(pub_years) < 1:
+                pub_year = -9999
+                print("no pub_year: ",link)
+            elif len(pub_years) > 1:
+                print("multiple pub_years: ",pub_years,link)
+                pub_year = pub_years[0]
+            else:
+                pub_year = pub_years[0]
         except AttributeError:
             try:
                 genre = review.find(
