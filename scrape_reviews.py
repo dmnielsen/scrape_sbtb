@@ -8,7 +8,6 @@ import re
 if __name__ == '__main__':
     
     #COMMENT OUT FOR TESTING 
-    """
     conn = sql.connect('sbtb.db',timeout=100)
     cur = conn.cursor()
     
@@ -65,8 +64,17 @@ if __name__ == '__main__':
             
         titleauthor = review.find('h1',{'class':'entry-title'}).text
         
+        ind = (titleauthor.rfind('by'))
+        if ind < 0:
+            title = titleauthor
+            author = ''
+            print('titleauthor issue',link)
+        else:
+            title = titleauthor[:ind]
+            author = titleauthor[ind+3:]
+        print(author)
         
-        print(grade,reviewer,genres,titleauthor,pub_year,'\n')
+        print(grade,reviewer,genres,title,author,pub_year,'\n')
         
         test += 1
     
@@ -126,3 +134,4 @@ if __name__ == '__main__':
         print(author)
         
         print(grade,reviewer,genres,title,author,pub_year,'\n')
+        """
