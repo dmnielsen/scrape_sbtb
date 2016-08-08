@@ -11,18 +11,19 @@ if __name__ == '__main__':
     conn = sql.connect('sbtb.db',timeout=100)
     cur = conn.cursor()
     
-    cur.execute('SELECT Link From Reviews WHERE Grade IS NULL;')
+    cur.execute('SELECT Id,Link From Reviews WHERE Grade IS NULL;')
     
     test = 0
     
-    while test < 2:
+    while test < 1:
         
-        link = cur.fetchone()
+        Id,link = cur.fetchone()
+        print(Id,link)
         
         if link == None:
             break
     
-        html = urllib.request.urlopen(link[0]).read()
+        html = urllib.request.urlopen(link).read()
         review = BeautifulSoup(html,'lxml').article
         
         grade = review.find('h1',{'class':'grade'}).text
@@ -72,9 +73,15 @@ if __name__ == '__main__':
         else:
             title = titleauthor[:ind]
             author = titleauthor[ind+3:]
-        print(author)
         
-        print(grade,reviewer,genres,title,author,pub_year,'\n')
+        #print(grade,reviewer,genres,title,author,pub_year,'\n')
+        #print('; '.join(genres))
+        
+        
+        cur.execute('UPDATE Reviews SET Reviewer=?,Grade=?,Title=?,Author=?,\
+                     Pub_year=?,genres=? WHERE Id=?;',(reviewer,grade,\
+                     title,author,pub_year,'; '.join(genres),Id))
+        conn.commit()
         
         test += 1
     
