@@ -15,7 +15,7 @@ if __name__ == '__main__':
     
     test = 0
     
-    while test < 1:
+    while test < 2:
         
         Id,link = cur.fetchone()
         print(Id,link)
@@ -28,6 +28,17 @@ if __name__ == '__main__':
         
         grade = review.find('h1',{'class':'grade'}).text
         reviewer = review.find('div',{'class':'entry-meta'}).a.text
+        
+        titleauthor = review.find('h1',{'class':'entry-title'}).text
+        
+        ind = (titleauthor.rfind('by'))
+        if ind < 0:
+            title = titleauthor
+            author = ''
+            print('titleauthor issue',link)
+        else:
+            title = titleauthor[:ind]
+            author = titleauthor[ind+3:]
         
         try:
             genres = [genre.text for genre in review.find(
@@ -61,18 +72,8 @@ if __name__ == '__main__':
                 
             except IndexError:
                 print('genre problem',link)
+                genres = ['']
                 continue
-            
-        titleauthor = review.find('h1',{'class':'entry-title'}).text
-        
-        ind = (titleauthor.rfind('by'))
-        if ind < 0:
-            title = titleauthor
-            author = ''
-            print('titleauthor issue',link)
-        else:
-            title = titleauthor[:ind]
-            author = titleauthor[ind+3:]
         
         #print(grade,reviewer,genres,title,author,pub_year,'\n')
         #print('; '.join(genres))
