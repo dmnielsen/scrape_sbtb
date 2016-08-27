@@ -5,6 +5,13 @@ import sqlite3 as sql
 import glob # for testing
 import re
 
+def get_grade(html_text):
+    try:
+        grade = html_text.find('h1',{'class':'grade'}).text
+    except:
+        grade = None
+    return grade
+
 if __name__ == '__main__':
     
     #COMMENT OUT FOR TESTING 
@@ -13,7 +20,7 @@ if __name__ == '__main__':
     
     test = 0
     
-    while test < 2:
+    while test < 10:
         
         cur.execute('SELECT Id,Link From Reviews WHERE Grade IS NULL;')
         
@@ -26,7 +33,8 @@ if __name__ == '__main__':
         html = urllib.request.urlopen(link).read()
         review = BeautifulSoup(html,'lxml').article
         
-        grade = review.find('h1',{'class':'grade'}).text
+        #grade = review.find('h1',{'class':'grade'}).text
+        grade = get_grade(review)
         reviewer = review.find('div',{'class':'entry-meta'}).a.text
         
         titleauthor = review.find('h1',{'class':'entry-title'}).text
@@ -83,6 +91,9 @@ if __name__ == '__main__':
                      Pub_year=?,genres=? WHERE Id=?;',(reviewer,grade,\
                      title,author,pub_year,'; '.join(genres),Id))
         
+        if test%10 == 0:
+            conn.commit()
+            
         test += 1
     
     conn.commit()
