@@ -33,7 +33,6 @@ if __name__ == '__main__':
         html = urllib.request.urlopen(link).read()
         review = BeautifulSoup(html,'lxml').article
         
-        #grade = review.find('h1',{'class':'grade'}).text
         grade = get_grade(review)
         reviewer = review.find('div',{'class':'entry-meta'}).a.text
         
