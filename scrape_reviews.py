@@ -9,6 +9,7 @@ def get_grade(html_text):
     try:
         grade = html_text.find('h1',{'class':'grade'}).text
     except:
+        print('grade problem',link)
         grade = 'N/A'
     return grade
 
@@ -20,12 +21,12 @@ if __name__ == '__main__':
     
     test = 0
     
-    while test < 10:
+    while test < 15:
         
         cur.execute('SELECT Id,Link From Reviews WHERE Grade IS NULL;')
         
         Id,link = cur.fetchone()
-        print(Id,link)
+        print(Id)
         
         if link == None:
             break
@@ -81,13 +82,13 @@ if __name__ == '__main__':
                 print('genre problem',link)
                 genres = ['']
                 pub_year = None
-                continue
+                
             except AttributeError:
                 print('other problem, setting genre, pub_year to null',link)
                 genres = ['']
                 pub_year = None
                 print('')
-                continue
+                
         
         #print(grade,reviewer,genres,title,author,pub_year,'\n')
         #print('; '.join(genres))
