@@ -10,4 +10,11 @@ Data are stored in an SQL table.
 reviewer, grade, book title, book author, publication year, and genres and
 writes it to the table. Review format was redone somewhere along the way,
 so code first looks for the new formatting, if that fails, it checks for
-the old formatting. 
+the old formatting.
+
+TODO:
+* In titleauthor occasional "By" is used rather than "by" update code
+to catch this
+* Update pieces to be held in functions rather than inline
+* Write some tests (think about edge cases that I've missed)
+* Set up error log that is maintained so I know which rows need fixing
