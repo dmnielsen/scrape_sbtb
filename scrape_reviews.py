@@ -69,7 +69,7 @@ if __name__ == '__main__':
                 pub_info = [s for s in genre if s.startswith('Publication')][0]
                 pub_years = (re.findall('\d{4}',pub_info))
                 if len(pub_years) < 1:
-                    pub_year = -9999
+                    pub_year = None
                     print("no pub_year: ",link)
                 elif len(pub_years) > 1:
                     print("multiple pub_years: ",pub_years,link)
@@ -80,6 +80,13 @@ if __name__ == '__main__':
             except IndexError:
                 print('genre problem',link)
                 genres = ['']
+                pub_year = None
+                continue
+            except AttributeError:
+                print('other problem, setting genre, pub_year to null',link)
+                genres = ['']
+                pub_year = None
+                print('')
                 continue
         
         #print(grade,reviewer,genres,title,author,pub_year,'\n')
