@@ -9,7 +9,7 @@ def get_grade(html_text):
     try:
         grade = html_text.find('h1',{'class':'grade'}).text
     except:
-        grade = None
+        grade = 'N/A'
     return grade
 
 if __name__ == '__main__':
