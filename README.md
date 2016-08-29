@@ -18,3 +18,4 @@ to catch this
 * Update pieces to be held in functions rather than inline
 * Write some tests (think about edge cases that I've missed)
 * Set up error log that is maintained so I know which rows need fixing
+* make number of entries to scrape an argument
