@@ -21,12 +21,11 @@ if __name__ == '__main__':
     
     test = 0
     
-    while test < 15:
+    while test < 50:
         
         cur.execute('SELECT Id,Link From Reviews WHERE Grade IS NULL;')
         
         Id,link = cur.fetchone()
-        print(Id)
         
         if link == None:
             break
@@ -99,6 +98,7 @@ if __name__ == '__main__':
                      title,author,pub_year,'; '.join(genres),Id))
         
         if test%10 == 0:
+            print(Id)
             conn.commit()
             
         test += 1
