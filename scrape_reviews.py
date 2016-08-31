@@ -45,9 +45,9 @@ if __name__ == '__main__':
         grade = get_grade(review)
         reviewer = get_reviewer(review)
         
-        titleauthor = review.find('h1',{'class':'entry-title'}).text
+        titleauthor = review.find('h1',{'class':'entry-title'}).text.lower()
         
-        ind = (titleauthor.rfind('by'))
+        ind = (titleauthor.lower().rfind('by'))
         if ind < 0:
             title = titleauthor
             author = ''
