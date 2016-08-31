@@ -19,3 +19,4 @@ to catch this
 * Write some tests (think about edge cases that I've missed)
 * Set up error log that is maintained so I know which rows need fixing
 * make number of entries to scrape an argument
+* drop "Not a book" genres/tags from the table
