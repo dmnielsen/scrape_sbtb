@@ -12,6 +12,15 @@ def get_grade(html_text):
         print('grade problem',link)
         grade = 'N/A'
     return grade
+    
+def get_reviewer(html_text):
+    try:
+        reviewer = html_text.find('div',{'class':'entry-meta'}).a.text
+    except:
+        print('reviewer issue',link)
+        reviewer = 'N/A'
+    return reviewer
+    
 
 if __name__ == '__main__':
     
@@ -21,7 +30,7 @@ if __name__ == '__main__':
     
     test = 0
     
-    while test < 50:
+    while test < 5:
         
         cur.execute('SELECT Id,Link From Reviews WHERE Grade IS NULL;')
         
@@ -34,7 +43,7 @@ if __name__ == '__main__':
         review = BeautifulSoup(html,'lxml').article
         
         grade = get_grade(review)
-        reviewer = review.find('div',{'class':'entry-meta'}).a.text
+        reviewer = get_reviewer(review)
         
         titleauthor = review.find('h1',{'class':'entry-title'}).text
         
