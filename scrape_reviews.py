@@ -21,6 +21,20 @@ def get_reviewer(html_text):
         reviewer = 'N/A'
     return reviewer
     
+def get_titleauthor(html_text):
+    titleauthor = html_text.find('h1',{'class':'entry-title'}).text
+    
+    ind = (titleauthor.lower().rfind('by'))
+    if ind < 0:
+        title = titleauthor
+        author = ''
+        print('titleauthor issue',link)
+    else:
+        title = titleauthor[:ind]
+        author = titleauthor[ind+3:]
+    
+    return title,author
+    
 
 if __name__ == '__main__':
     
@@ -45,16 +59,7 @@ if __name__ == '__main__':
         grade = get_grade(review)
         reviewer = get_reviewer(review)
         
-        titleauthor = review.find('h1',{'class':'entry-title'}).text.lower()
-        
-        ind = (titleauthor.lower().rfind('by'))
-        if ind < 0:
-            title = titleauthor
-            author = ''
-            print('titleauthor issue',link)
-        else:
-            title = titleauthor[:ind]
-            author = titleauthor[ind+3:]
+        title,author = get_titleauthor(review)
         
         try:
             genres = [genre.text for genre in review.find(
@@ -67,7 +72,7 @@ if __name__ == '__main__':
                 print("no pub_year: ",link)
             elif len(pub_years) > 1:
                 print("multiple pub_years: ",pub_years,link)
-                pub_year = pub_years[0]
+                pub_year = min(pub_years)
             else:
                 pub_year = pub_years[0]
         except AttributeError:
