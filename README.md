@@ -25,3 +25,4 @@ to catch this~~
 attributed "Guest Reviews"
   - ~~Old format~~
   - New format
+* change number of entries to scrape a command line argument
