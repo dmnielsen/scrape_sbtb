@@ -23,3 +23,5 @@ to catch this~~
 * drop "Not a book" genres/tags from the table
 * write code to go thru existing rows in table to look for improperly
 attributed "Guest Reviews"
+  - ~~Old format~~
+  - New format
