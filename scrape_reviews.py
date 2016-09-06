@@ -21,19 +21,56 @@ def get_reviewer(html_text):
         reviewer = 'N/A'
     return reviewer
     
-def get_titleauthor(html_text):
+def get_reviewertitleauthor(html_text):
     titleauthor = html_text.find('h1',{'class':'entry-title'}).text
+    
+    if ('guest' and 'review') in titleauthor.lower():
+        return get_guestreview(html_text)            
+        
+    reviewer = get_reviewer(html_text);
     
     ind = (titleauthor.lower().rfind('by'))
     if ind < 0:
         title = titleauthor
         author = ''
-        print('titleauthor issue',link)
+        print('no author listed',link)
     else:
         title = titleauthor[:ind]
         author = titleauthor[ind+3:]
     
-    return title,author
+    return reviewer,title,author
+    
+def get_guestreview(html_text):
+    titleauthor = html_text.find('h1',{'class':'entry-title'}).text
+    ind = (titleauthor.lower().rfind('by'))
+    if ind < 0:
+        print('guest reviewer issue',link)
+        reviewer=titleauthor
+        author=''
+    else:
+        reviewer = titleauthor[ind+3:]
+        
+    reviewbox = html_text.find(
+         'div',{'class':'review-box'}).p.text.strip().split('\n')
+    #get title     
+    try:
+        title_info = [s for s in reviewbox if s.lower().startswith('title')][0]
+        ind = title_info.find(':')
+        title = title_info[ind+1:].strip()
+    except:
+        print('title error',link)
+        title = ''
+    #get author
+    try:
+        auth_info = [s for s in reviewbox if s.lower().startswith('author')][0]
+        ind = auth_info.find(':')
+        author = auth_info[ind+1:].strip()
+    except IndexError:
+        print('no listed author',link)
+        author = ''
+    return reviewer,title,author
+    
+    
     
 def get_genre_pubyear(html_text):
     try:
@@ -93,7 +130,7 @@ if __name__ == '__main__':
     
     test = 0
     
-    while test < 1:
+    while test < 10:
         
         cur.execute('SELECT Id,Link From Reviews WHERE Grade IS NULL;')
         
@@ -107,9 +144,8 @@ if __name__ == '__main__':
         review = BeautifulSoup(html,'lxml').article
         
         grade = get_grade(review)
-        reviewer = get_reviewer(review)
         
-        title,author = get_titleauthor(review)
+        reviewer,title,author = get_reviewertitleauthor(review)
         
         genres,pub_year = get_genre_pubyear(review)
                 
@@ -136,54 +172,10 @@ if __name__ == '__main__':
     for link in links:
         review = BeautifulSoup(open(link,'r'),'lxml').article
         
-        grade = review.find('h1',{'class':'grade'}).text
-        reviewer = review.find('div',{'class':'entry-meta'}).a.text
+        grade = get_grade(review)
+        reviewer,title,author = get_reviewertitleauthor(review)
         
-        try:
-            genres = [genre.text for genre in review.find(
-            'div',{'class':'callout'}).find_all('a')[1:]]
-            pub_info = review.find('div',{'class':'featured'}).find(
-            'p',{'class':'pub'}).text
-            pub_years = re.findall(r'\d{4}',pub_info)
-            if len(pub_years) < 1:
-                pub_year = -9999
-                print("no pub_year: ",link)
-            elif len(pub_years) > 1:
-                print("multiple pub_years: ",pub_years,link)
-                pub_year = pub_years[0]
-            else:
-                pub_year = pub_years[0]
-        except AttributeError:
-            try:
-                genre = review.find(
-                'div',{'class':'review-box'}).text.strip().split('\n')
-                genres = [genre[-1].split(':')[1]]
-                pub_info = [s for s in genre if s.startswith('Publication')][0]
-                pub_years = (re.findall('\d{4}',pub_info))
-                if len(pub_years) < 1:
-                    pub_year = -9999
-                    print("no pub_year: ",link)
-                elif len(pub_years) > 1:
-                    print("multiple pub_years: ",pub_years,link)
-                    pub_year = pub_years[0]
-                else:
-                    pub_year = pub_years[0]
-                
-            except IndexError:
-                print('genre problem',link)
-                continue
-            
-        titleauthor = review.find('h1',{'class':'entry-title'}).text
-        
-        ind = (titleauthor.rfind('by'))
-        if ind < 0:
-            title = titleauthor
-            author = ''
-            print('titleauthor issue',link)
-        else:
-            title = titleauthor[:ind]
-            author = titleauthor[ind+3:]
-        print(author)
+        genres,pub_year = get_genre_pubyear(review)
         
         print(grade,reviewer,genres,title,author,pub_year,'\n')
-        """
+    """
