@@ -135,7 +135,7 @@ if __name__ == '__main__':
         cur.execute('SELECT Id,Link From Reviews WHERE Grade IS NULL;')
         
         Id,link = cur.fetchone()
-        print(Id,link)
+        #print(Id,link)
         
         if link == None:
             break
@@ -156,7 +156,7 @@ if __name__ == '__main__':
         
         cur.execute('UPDATE Reviews SET Reviewer=?,Grade=?,Title=?,Author=?,\
                      Pub_year=?,genres=? WHERE Id=?;',(reviewer,grade,\
-                     title,author,pub_year,'; '.join(genres),Id))
+                     title,author,pub_year,' '.join(genres),Id))
         
         if test%10 == 0:
             print(Id)
