@@ -35,6 +35,55 @@ def get_titleauthor(html_text):
     
     return title,author
     
+def get_genre_pubyear(html_text):
+    try:
+        genres = [genre.text for genre in html_text.find(
+        'div',{'class':'callout'}).find_all('a')[1:]]
+        pub_info = html_text.find('div',{'class':'featured'}).find(
+        'p',{'class':'pub'}).text
+        pub_years = re.findall(r'\d{4}',pub_info)
+        if len(pub_years) < 1:
+            pub_year = None
+            print("no pub_year: ",link)
+        elif len(pub_years) > 1:
+            print("multiple pub_years: ",pub_years,link)
+            pub_year = min(pub_years)
+        else:
+            pub_year = pub_years[0]
+    except AttributeError:
+        try:
+            genre = html_text.find(
+            'div',{'class':'review-box'}).text.strip().split('\n')
+            genres = [genre[-1].split(':')[1]]
+            pub_info = [s for s in genre if s.startswith('Publication')][0]
+            pub_years = (re.findall('\d{4}',pub_info))
+            if len(pub_years) < 1:
+                pub_year = None
+                print("no pub_year: ",link)
+            elif len(pub_years) > 1:
+                print("multiple pub_years: ",pub_years,link)
+                pub_year = min(pub_years)
+            else:
+                pub_year = pub_years[0]
+            
+        except IndexError:
+            print('genre problem',link)
+            genres = ['']
+            pub_year = None
+            
+        except AttributeError:
+            print('other problem, setting genre, pub_year to null',link)
+            genres = ['']
+            pub_year = None
+            print('')
+    return genres,pub_year
+    
+def newformat_genre_pubyear(html_text):
+    pass
+    
+def oldformat_genre_pubyear(html_text):
+    pass
+    
 
 if __name__ == '__main__':
     
@@ -44,11 +93,12 @@ if __name__ == '__main__':
     
     test = 0
     
-    while test < 5:
+    while test < 1:
         
         cur.execute('SELECT Id,Link From Reviews WHERE Grade IS NULL;')
         
         Id,link = cur.fetchone()
+        print(Id,link)
         
         if link == None:
             break
@@ -61,46 +111,7 @@ if __name__ == '__main__':
         
         title,author = get_titleauthor(review)
         
-        try:
-            genres = [genre.text for genre in review.find(
-            'div',{'class':'callout'}).find_all('a')[1:]]
-            pub_info = review.find('div',{'class':'featured'}).find(
-            'p',{'class':'pub'}).text
-            pub_years = re.findall(r'\d{4}',pub_info)
-            if len(pub_years) < 1:
-                pub_year = -9999
-                print("no pub_year: ",link)
-            elif len(pub_years) > 1:
-                print("multiple pub_years: ",pub_years,link)
-                pub_year = min(pub_years)
-            else:
-                pub_year = pub_years[0]
-        except AttributeError:
-            try:
-                genre = review.find(
-                'div',{'class':'review-box'}).text.strip().split('\n')
-                genres = [genre[-1].split(':')[1]]
-                pub_info = [s for s in genre if s.startswith('Publication')][0]
-                pub_years = (re.findall('\d{4}',pub_info))
-                if len(pub_years) < 1:
-                    pub_year = None
-                    print("no pub_year: ",link)
-                elif len(pub_years) > 1:
-                    print("multiple pub_years: ",pub_years,link)
-                    pub_year = pub_years[0]
-                else:
-                    pub_year = pub_years[0]
-                
-            except IndexError:
-                print('genre problem',link)
-                genres = ['']
-                pub_year = None
-                
-            except AttributeError:
-                print('other problem, setting genre, pub_year to null',link)
-                genres = ['']
-                pub_year = None
-                print('')
+        genres,pub_year = get_genre_pubyear(review)
                 
         
         #print(grade,reviewer,genres,title,author,pub_year,'\n')
