@@ -8,9 +8,10 @@ Data are stored in an SQL table.
 
 **scrape_reviews.py** goes through each link and pulls information on the
 reviewer, grade, book title, book author, publication year, and genres and
-writes it to the table. Review format was redone somewhere along the way,
-so code first looks for the new formatting, if that fails, it checks for
-the old formatting.
+writes it to the table. Review format was redone somewhere along the way
+(14 October 2014), so code first looks for the new formatting, if that fails,
+it checks for the old formatting. A restructure to look for guest reviews first
+was added. Should outsource the whole process into functions.
 
 TODO:
 * ~~In titleauthor occasional "By" is used rather than "by" update code
