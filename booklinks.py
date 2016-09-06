@@ -7,6 +7,8 @@ from bs4 import BeautifulSoup
 import urllib.request
 import sqlite3 as sql
 
+# From 14 October, 2014 new format for reviews
+
 def define_month_abbr():
     # global define dict to convert month_abbr to integer with leading zero
     global months
