@@ -13,10 +13,12 @@ so code first looks for the new formatting, if that fails, it checks for
 the old formatting.
 
 TODO:
-* In titleauthor occasional "By" is used rather than "by" update code
-to catch this
+* ~~In titleauthor occasional "By" is used rather than "by" update code
+to catch this~~
 * Update pieces to be held in functions rather than inline
 * Write some tests (think about edge cases that I've missed)
 * Set up error log that is maintained so I know which rows need fixing
 * make number of entries to scrape an argument
 * drop "Not a book" genres/tags from the table
+* write code to go thru existing rows in table to look for improperly
+attributed "Guest Reviews"
