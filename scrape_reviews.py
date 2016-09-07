@@ -6,6 +6,9 @@ import glob # for testing
 import re
 
 def get_grade(html_text):
+    """Returns grade for a review
+    Returns "N/A" if can't find grade
+    """
     try:
         grade = html_text.find('h1',{'class':'grade'}).text
     except:
