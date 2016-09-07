@@ -173,7 +173,7 @@ if __name__ == '__main__':
         if link == None:
             break
     
-        review = prase_webpage(link)
+        review = parse_webpage(link)
         
         grade = get_grade(review)
         
