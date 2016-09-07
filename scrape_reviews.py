@@ -132,7 +132,11 @@ def input_scrape_number():
             print('Error: non-numeric value')
             print('setting value to default')
             return 10
-        
+
+def parse_webpage(link):
+    html = urllib.request.urlopen(link).read()
+    review = BeautifulSoup(html,'lxml').article
+    return review
 
 if __name__ == '__main__':
     
@@ -162,8 +166,7 @@ if __name__ == '__main__':
         if link == None:
             break
     
-        html = urllib.request.urlopen(link).read()
-        review = BeautifulSoup(html,'lxml').article
+        review = prase_webpage(link)
         
         grade = get_grade(review)
         
