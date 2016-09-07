@@ -141,6 +141,9 @@ def input_scrape_number():
 
 
 def parse_webpage(link):
+    """Parse html of given link
+    Return article text
+    """
     html = urllib.request.urlopen(link).read()
     review = BeautifulSoup(html,'lxml').article
     return review
