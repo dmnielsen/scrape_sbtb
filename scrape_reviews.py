@@ -121,6 +121,18 @@ def newformat_genre_pubyear(html_text):
 def oldformat_genre_pubyear(html_text):
     pass
     
+def input_scrape_number():
+    num = input('Number to scrape [default 10]: ')
+    try:
+        return int(num)
+    except:
+        if num == '':
+            return 10
+        else:
+            print('Error: non-numeric value')
+            print('setting value to default')
+            return 10
+        
 
 if __name__ == '__main__':
     
@@ -128,9 +140,19 @@ if __name__ == '__main__':
     conn = sql.connect('sbtb.db',timeout=100)
     cur = conn.cursor()
     
-    test = 0
+    try:
+        iters = int(sys.argv[1])
+    except ValueError:
+        # arg isn't a number
+        print('Error: non-numeric value provided')
+        iters = input_scrape_number()
+    except IndexError:
+        # no arg passed in
+        iters = input_scrape_number()
+        
+    i = 0
     
-    while test < 10:
+    while i < iters:
         
         cur.execute('SELECT Id,Link From Reviews WHERE Grade IS NULL;')
         
@@ -158,11 +180,11 @@ if __name__ == '__main__':
                      Pub_year=?,genres=? WHERE Id=?;',(reviewer,grade,\
                      title,author,pub_year,' '.join(genres),Id))
         
-        if test%10 == 0:
-            print(Id)
+        if i%10 == 0:
+            print(i)
             conn.commit()
             
-        test += 1
+        i += 1
     
     conn.commit()
     
