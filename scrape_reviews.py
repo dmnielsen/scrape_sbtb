@@ -122,16 +122,20 @@ def oldformat_genre_pubyear(html_text):
     pass
     
 def input_scrape_number():
-    num = input('Number to scrape [default 10]: ')
+    """Asks user to input number of reviews to scrape
+    Default value is used if no input is given/ValueError raised
+    Returns integer 
+    """
+    default = 10
+    num = input('Number to scrape [default {}]: '.format(default))
     try:
         return int(num)
-    except:
-        if num == '':
-            return 10
-        else:
-            print('Error: non-numeric value')
-            print('setting value to default')
-            return 10
+    except ValueError:
+        print('Error: non-numeric value')
+        print('setting value to default: {}'.format(default))
+    return default
+
+
 
 def parse_webpage(link):
     html = urllib.request.urlopen(link).read()
