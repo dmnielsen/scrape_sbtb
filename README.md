@@ -19,10 +19,9 @@ to catch this~~
 * ~~Update pieces to be held in functions rather than inline~~
 * Write some tests (think about edge cases that I've missed)
 * Set up error log that is maintained so I know which rows need fixing
-* make number of entries to scrape an argument
 * drop "Not a book" genres/tags from the table
 * write code to go thru existing rows in table to look for improperly
 attributed "Guest Reviews"
   - ~~Old format~~
   - New format
-* change number of entries to scrape a command line argument
+* ~~change number of entries to scrape a command line argument~~
