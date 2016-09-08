@@ -25,4 +25,5 @@ attributed "Guest Reviews"
   - ~~Old format~~
   - New format
 * ~~change number of entries to scrape a command line argument~~
-* update booklinks.py to add new reviews to table 
+* update booklinks.py to add new reviews to table
+* change scrape format of "new" styled posts to get title/author info
