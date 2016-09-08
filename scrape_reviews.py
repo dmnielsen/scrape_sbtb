@@ -32,7 +32,7 @@ def get_reviewertitleauthor(html_text):
         
     reviewer = get_reviewer(html_text);
     
-    ind = (titleauthor.lower().rfind('by'))
+    ind = (titleauthor.lower().rfind(' by '))
     if ind < 0:
         title = titleauthor
         author = ''
@@ -42,6 +42,10 @@ def get_reviewertitleauthor(html_text):
         author = titleauthor[ind+3:]
     
     return reviewer,title,author
+
+def get_new_titleauthor(html_text):
+    titleauthor = html_text.find('div',{'class':'details'})
+    print(titleauthor.h6.text)
     
 def get_guestreview(html_text):
     titleauthor = html_text.find('h1',{'class':'entry-title'}).text
@@ -134,7 +138,7 @@ def input_scrape_number():
     try:
         return int(num)
     except ValueError:
-        print('Error: non-numeric value')
+        print('Error: must be integer')
         print('setting value to default: {}'.format(default))
     return default
 
@@ -149,7 +153,7 @@ def parse_webpage(link):
     return review
 
 if __name__ == '__main__':
-    
+    """
     #COMMENT OUT FOR TESTING 
     conn = sql.connect('sbtb.db',timeout=100)
     cur = conn.cursor()
@@ -158,7 +162,7 @@ if __name__ == '__main__':
         iters = int(sys.argv[1])
     except ValueError:
         # arg isn't a number
-        print('Error: non-numeric value provided')
+        print('Error: value must be integer')
         iters = input_scrape_number()
     except IndexError:
         # no arg passed in
@@ -202,9 +206,10 @@ if __name__ == '__main__':
     conn.commit()
     
     """
-    links = glob.glob('testfiles/book*')
+    links = glob.glob('testfiles/new_book*')
     
     for link in links:
+        print(link)
         review = BeautifulSoup(open(link,'r'),'lxml').article
         
         grade = get_grade(review)
@@ -212,5 +217,5 @@ if __name__ == '__main__':
         
         genres,pub_year = get_genre_pubyear(review)
         
-        print(grade,reviewer,genres,title,author,pub_year,'\n')
-    """
+        #print(grade,reviewer,genres,title,author,pub_year,'\n')
+    #"""
