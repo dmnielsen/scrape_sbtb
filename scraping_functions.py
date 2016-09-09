@@ -53,6 +53,29 @@ def get_grade(html_text):
         grade = 'N/A'
     return grade
 
+def get_new_reviewertitleauthor(html_text):
+    """Returns reviewer,title,author for new format reviews"""
+    review_title = html_text.find('h1',{'class':'entry-title'}).text
+    
+    if ('guest' and 'review') in titleauthor.lower():
+        return get_new_guestreview(html_text)            
+        
+    reviewer = get_reviewer(html_text);
+    
+    ind = (titleauthor.lower().rfind(' by '))
+    if ind < 0:
+        title = titleauthor
+        author = ''
+        print('no author listed',link)
+    else:
+        title = titleauthor[:ind]
+        author = titleauthor[ind+3:]
+    
+    return reviewer,title,author
+
+def get_new_guestreview(html_text):
+    """Returns reviewer info, title,author for new format guest reviews"""
+    pass
     
 if __name__ == '__main__':
     
