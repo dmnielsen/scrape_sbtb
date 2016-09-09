@@ -15,7 +15,7 @@ def scrape_info(link,date):
     review = parse_webpage(link)
     
     if date > '2014-10-13':
-        grade,reviewer,title,author,genre,pub_year = '','','','',[''],''
+        grade,reviewer,title,author,genre,pub_year = scrape_new_format(review)
     else:
         grade,reviewer,title,author,genre,pub_year = '','','','',[''],''
     return grade,reviewer,title,author,genre,pub_year
@@ -26,13 +26,21 @@ def parse_webpage(link):
     Return article text
     """
     try:
-        html = urllib.request.urlopen(link).read()
+        html = open(link,'r') #for testing
+        #html = urllib.request.urlopen(link).read()
     except:
         print('Invalid link',link)
         raise
     review = BeautifulSoup(html,'lxml').article
     
     return review
+
+def scrape_new_format(review):
+    """Find and return scraped info from reviews with new format
+    Returns: grade,reviewer,title,author,genres,pub_year
+    """
+    return '','','','',[''],''
+    
     
 if __name__ == '__main__':
     
