@@ -66,16 +66,16 @@ def get_new_reviewertitleauthor(html_text):
     if ind < 0:
         title = titleauthor
         author = ''
-        print('no author listed',link)
+        print('no author listed')
     else:
         title = titleauthor[:ind]
         author = titleauthor[ind+3:]
     
-    return reviewer,title,author
+    return '','',''
 
 def get_new_guestreview(html_text):
     """Returns reviewer info, title,author for new format guest reviews"""
-    pass
+    return '','',''
     
 if __name__ == '__main__':
     
