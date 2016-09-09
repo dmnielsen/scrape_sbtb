@@ -39,8 +39,20 @@ def scrape_new_format(review):
     """Find and return scraped info from reviews with new format
     Returns: grade,reviewer,title,author,genres,pub_year
     """
+    grade = get_grade(review)
     return '','','','',[''],''
     
+def get_grade(html_text):
+    """Returns grade for a review
+    Returns "N/A" if can't find grade
+    """
+    try:
+        grade = html_text.find('h1',{'class':'grade'}).text
+    except:
+        print('grade problem')
+        grade = 'N/A'
+    return grade
+
     
 if __name__ == '__main__':
     
