@@ -40,7 +40,7 @@ def scrape_new_format(review):
     Returns: grade,reviewer,title,author,genres,pub_year
     """
     grade = get_grade(review)
-    return '','','','',[''],''
+    return grade,'','','',[''],''
     
 def get_grade(html_text):
     """Returns grade for a review
