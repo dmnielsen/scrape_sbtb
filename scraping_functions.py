@@ -40,7 +40,8 @@ def scrape_new_format(review):
     Returns: grade,reviewer,title,author,genres,pub_year
     """
     grade = get_grade(review)
-    return grade,'','','',[''],''
+    reviewer,title,author = get_new_reviewertitleauthor(review)
+    return grade,reviewer,title,author,[''],''
     
 def get_grade(html_text):
     """Returns grade for a review
@@ -57,25 +58,35 @@ def get_new_reviewertitleauthor(html_text):
     """Returns reviewer,title,author for new format reviews"""
     review_title = html_text.find('h1',{'class':'entry-title'}).text
     
-    if ('guest' and 'review') in titleauthor.lower():
+    if ('guest' and 'review') in review_title.lower():
         return get_new_guestreview(html_text)            
         
     reviewer = get_reviewer(html_text);
     
-    ind = (titleauthor.lower().rfind(' by '))
+    ind = (review_title.lower().rfind(' by '))
     if ind < 0:
-        title = titleauthor
+        title = review_title
         author = ''
         print('no author listed')
     else:
-        title = titleauthor[:ind]
-        author = titleauthor[ind+3:]
+        title = review_title[:ind]
+        author = review_title[ind+3:]
     
-    return '','',''
+    return reviewer,'',''
 
 def get_new_guestreview(html_text):
     """Returns reviewer info, title,author for new format guest reviews"""
     return '','',''
+
+def get_reviewer(html_text):
+    """Return reviewer (listed as post author)"""
+    try:
+        reviewer = html_text.find('div',{'class':'entry-meta'}).a.text
+    except:
+        print('reviewer issue',link)
+        reviewer = 'N/A'
+    
+    return reviewer
     
 if __name__ == '__main__':
     
