@@ -50,8 +50,8 @@ def scrape_old_format(review):
     Returns: grade, reviewer, title, author, genres, pub_year"""
     grade = get_grade(review)
     reviewer,title, author = get_old_reviewertitleauthor(review)
-    genres = ''
-    pub_year = ''
+    genres = get_old_genres(review)
+    pub_year = get_old_pubyear(review)
     return grade, reviewer, title, author, genres, pub_year
 
 
@@ -89,7 +89,14 @@ def get_new_guestreview(html_text):
 
 def get_old_reviewertitleauthor(html_text):
     """Returns reviewer, title, author for old format reviews"""
-    return '', '', ''
+    review_title = html_text.find('h1', {'class': 'entry-title'}).text
+
+    if ('guest' and 'review') in review_title.lower():
+        return get_old_guestreview(html_text)
+
+    reviewer = get_reviewer(html_text)
+    title, author = get_old_titleauthor(html_text)
+    return reviewer, title, author
 
 
 def get_reviewer(html_text):
