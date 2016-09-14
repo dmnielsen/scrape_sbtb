@@ -165,7 +165,7 @@ def get_new_pubyear(html_text):
 
 def get_old_pubyear(html_text):
      """Return publication year from new format reviews"""
-    return ''
+     return ''
 
 
 if __name__ == '__main__':
