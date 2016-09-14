@@ -49,7 +49,7 @@ def scrape_old_format(review):
     """Find and return scraped info from reviews with old format
     Returns: grade, reviewer, title, author, genres, pub_year"""
     grade = get_grade(review)
-    reviewer,title, author = get_old_reviewertitleauthor(review)
+    reviewer, title, author = get_old_reviewertitleauthor(review)
     genres = get_old_genres(review)
     pub_year = get_old_pubyear(review)
     return grade, reviewer, title, author, genres, pub_year
@@ -176,8 +176,8 @@ def get_new_pubyear(html_text):
 
 
 def get_old_pubyear(html_text):
-     """Return publication year from new format reviews"""
-     return ''
+    """Return publication year from new format reviews"""
+    return ''
 
 
 if __name__ == '__main__':
