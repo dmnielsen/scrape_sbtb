@@ -3,7 +3,7 @@ import scraping_functions as scrape
 
 if __name__ == '__main__':
     
-    links = glob.glob('testfiles/new_book*')
+    links = glob.glob('testfiles/old_book*')
     
     for link in links:
         print(link)
