@@ -48,11 +48,12 @@ def scrape_new_format(review):
 def scrape_old_format(review):
     """Find and return scraped info from reviews with old format
     Returns: grade, reviewer, title, author, genres, pub_year"""
-    grade = ''
-    reviewer,title, author = '', '', ''
+    grade = get_grade(review)
+    reviewer,title, author = get_old_reviewertitleauthor(review)
     genres = ''
     pub_year = ''
     return grade, reviewer, title, author, genres, pub_year
+
 
 def get_grade(html_text):
     """Returns grade for a review
@@ -86,6 +87,11 @@ def get_new_guestreview(html_text):
     return '', '', ''
 
 
+def get_old_reviewertitleauthor(html_text):
+    """Returns reviewer, title, author for old format reviews"""
+    return '', '', ''
+
+
 def get_reviewer(html_text):
     """Return reviewer (listed as post author)"""
     try:
@@ -116,6 +122,11 @@ def get_new_titleauthor(html_text):
     return title, author
 
 
+def get_old_titleauthor(html_text):
+    """Return title and author for new format reviews"""
+    return '', ''
+
+
 def get_new_genres(html_text):
     """Return genres from new format reviews"""
     try:
@@ -125,6 +136,11 @@ def get_new_genres(html_text):
         print('issue with genres')
         return ''
     return ' '.join(genres)
+
+
+def get_old_genres(html_text):
+    """Return genres from new format reviews"""
+    return ''
 
 
 def get_new_pubyear(html_text):
@@ -145,6 +161,11 @@ def get_new_pubyear(html_text):
     else:
         pub_year = pub_years[0]
     return pub_year
+
+
+def get_old_pubyear(html_text):
+     """Return publication year from new format reviews"""
+    return ''
 
 
 if __name__ == '__main__':
