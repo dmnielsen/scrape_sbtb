@@ -5,7 +5,6 @@ import sqlite3 as sql
 import re
 
 
-
 def scrape_info(link,date):
     """Find and return review data from webpage
     Returns: 
@@ -62,17 +61,12 @@ def get_new_reviewertitleauthor(html_text):
         return get_new_guestreview(html_text)            
         
     reviewer = get_reviewer(html_text);
+    title,author = get_new_titleauthor(html_text)
     
-    ind = (review_title.lower().rfind(' by '))
-    if ind < 0:
+    if title == None:
         title = review_title
-        author = ''
-        print('no author listed')
-    else:
-        title = review_title[:ind]
-        author = review_title[ind+3:]
     
-    return reviewer,'',''
+    return reviewer,title,author
 
 def get_new_guestreview(html_text):
     """Returns reviewer info, title,author for new format guest reviews"""
@@ -87,6 +81,28 @@ def get_reviewer(html_text):
         reviewer = 'N/A'
     
     return reviewer
+    
+def get_new_titleauthor(html_text):
+    """Return title and author for new format reviews"""
+    try:
+        details = html_text.find('div',{'class':'hide-for-mobile-large'})
+    except:
+        print("problem with title author details")
+        return None,None
+    try:
+        title = details.h6.em.text
+    except AttributeError:
+        print("No title found")
+        return None,None
+    try:
+        author = details.find('p',{'class':'small'}).a.text
+    except AttributeError:
+        print("No author found")
+        return title,None
+    
+    return title,author
+    
+    
     
 if __name__ == '__main__':
     
