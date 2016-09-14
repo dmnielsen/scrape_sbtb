@@ -16,7 +16,7 @@ def scrape_info(link, date):
     if date > '2014-10-13':
         info = scrape_new_format(review)
     else:
-        info = '', '', '', '', [''], ''
+        info = scrape_old_format(review)
     return info
 
 
@@ -44,6 +44,15 @@ def scrape_new_format(review):
     pub_year = get_new_pubyear(review)
     return grade, reviewer, title, author, genres, pub_year
 
+
+def scrape_old_format(review):
+    """Find and return scraped info from reviews with old format
+    Returns: grade, reviewer, title, author, genres, pub_year"""
+    grade = ''
+    reviewer,title, author = '', '', ''
+    genres = ''
+    pub_year = ''
+    return grade, reviewer, title, author, genres, pub_year
 
 def get_grade(html_text):
     """Returns grade for a review
