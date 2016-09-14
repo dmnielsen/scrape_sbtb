@@ -29,3 +29,4 @@ attributed "Guest Reviews"
 * change scrape format of "new" styled posts to get title/author info
 * get rid of overflow lines by removing unpacking
 * ~~convert genres into string before returning~~
+* create two cursors: one to iterate thru table, one to update table
