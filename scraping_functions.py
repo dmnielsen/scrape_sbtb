@@ -40,7 +40,8 @@ def scrape_new_format(review):
     """
     grade = get_grade(review)
     reviewer, title, author = get_new_reviewertitleauthor(review)
-    return grade, reviewer, title, author, [''], ''
+    genres = get_new_genres(review)
+    return grade, reviewer, title, author, genres, ''
 
 
 def get_grade(html_text):
@@ -107,6 +108,17 @@ def get_new_titleauthor(html_text):
     
     return title, author
 
+
+def get_new_genres(html_text):
+    """Return genres from new format reviews"""
+    try:
+        genres = [genre.text for genre in html_text.find(
+            'div', {'class': 'callout'}).find_all('a')[1:]]
+    except AttributeError:
+        print('issue with genres')
+        return ''
+    return ' '.join(genres)
+        
 
 if __name__ == '__main__':
 
