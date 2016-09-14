@@ -25,8 +25,8 @@ def parse_webpage(link):
     Return article text
     """
     try:
-        html = open(link, 'r') #for testing
-        #html = urllib.request.urlopen(link).read()
+        html = open(link, 'r')  # for testing
+        # html = urllib.request.urlopen(link).read()
     except:
         print('Invalid link', link)
         raise
@@ -41,7 +41,8 @@ def scrape_new_format(review):
     grade = get_grade(review)
     reviewer, title, author = get_new_reviewertitleauthor(review)
     genres = get_new_genres(review)
-    return grade, reviewer, title, author, genres, ''
+    pub_year = get_new_pubyear(review)
+    return grade, reviewer, title, author, genres, pub_year
 
 
 def get_grade(html_text):
@@ -59,16 +60,15 @@ def get_grade(html_text):
 def get_new_reviewertitleauthor(html_text):
     """Returns reviewer,title,author for new format reviews"""
     review_title = html_text.find('h1', {'class': 'entry-title'}).text
-    
+
     if ('guest' and 'review') in review_title.lower():
-        return get_new_guestreview(html_text)            
-        
+        return get_new_guestreview(html_text)
+
     reviewer = get_reviewer(html_text)
     title, author = get_new_titleauthor(html_text)
-    
+
     if title is None:
         title = review_title
-    
     return reviewer, title, author
 
 
@@ -84,10 +84,9 @@ def get_reviewer(html_text):
     except:
         print('reviewer issue', link)
         reviewer = 'N/A'
-    
     return reviewer
 
-    
+
 def get_new_titleauthor(html_text):
     """Return title and author for new format reviews"""
     try:
@@ -105,7 +104,6 @@ def get_new_titleauthor(html_text):
     except AttributeError:
         print("No author found")
         return title, None
-    
     return title, author
 
 
@@ -118,7 +116,27 @@ def get_new_genres(html_text):
         print('issue with genres')
         return ''
     return ' '.join(genres)
-        
+
+
+def get_new_pubyear(html_text):
+    """Return publication year from new format reviews"""
+    try:
+        pub_info = html_text.find('div', {'class': 'featured'}).find(
+                   'p', {'class': 'pub'}).text
+    except AttributeError:
+        print('no publication info found')
+        return None
+    pub_years = re.findall(r'\d{4}', pub_info)
+    if len(pub_years) < 1:
+        pub_year = None
+        print("no pub_year")
+    elif len(pub_years) > 1:
+        print("multiple pub_years: ", pub_years)
+        pub_year = min(pub_years)
+    else:
+        pub_year = pub_years[0]
+    return pub_year
+
 
 if __name__ == '__main__':
 
