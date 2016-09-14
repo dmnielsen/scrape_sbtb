@@ -99,6 +99,11 @@ def get_old_reviewertitleauthor(html_text):
     return reviewer, title, author
 
 
+def get_old_guestreview(html_text):
+    """Returns reviewer info, title,author for old format guest reviews"""
+    return '', '', ''
+
+
 def get_reviewer(html_text):
     """Return reviewer (listed as post author)"""
     try:
