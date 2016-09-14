@@ -28,4 +28,4 @@ attributed "Guest Reviews"
 * update booklinks.py to add new reviews to table
 * change scrape format of "new" styled posts to get title/author info
 * get rid of overflow lines by removing unpacking
-* convert genres into string before returning
+* ~~convert genres into string before returning~~
