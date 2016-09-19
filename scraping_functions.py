@@ -47,7 +47,7 @@ def scrape_new_format(review):
     genres, e3 = get_new_genres(review)
     pub_year, e4 = get_new_pubyear(review)
     
-    error = ', '.join([e1,e2,e3,e4])
+    error = ''.join([e1,e2,e3,e4])
     
     return grade, reviewer, title, author, genres, pub_year, error
 
@@ -60,7 +60,7 @@ def scrape_old_format(review):
     genres, e3 = get_old_genres(review)
     pub_year, e4 = get_old_pubyear(review)
     
-    error = ', '.join([e1,e2,e3,e4])
+    error = ''.join([e1,e2,e3,e4])
 
     return grade, reviewer, title, author, genres, pub_year, error
 
@@ -73,7 +73,7 @@ def get_grade(html_text):
         grade = html_text.find('h1', {'class': 'grade'}).text
     except:
         #print('grade problem')
-        grade = 'N/A', 'grade problem'
+        return 'N/A', 'grade problem/'
     return grade, ''
 
 
@@ -93,7 +93,7 @@ def get_new_reviewertitleauthor(html_text):
     if title is None:
         title = review_title
 
-    error = ', '.join([e1,e2])
+    error = ''.join([e1,e2])
 
     return reviewer, title, author, error
 
@@ -116,7 +116,7 @@ def get_old_reviewertitleauthor(html_text):
     reviewer, e1 = get_reviewer(html_text)
     title, author, e2 = get_old_titleauthor(html_text)
 
-    error = ', '.join([e1, e2])
+    error = ''.join([e1, e2])
 
     return reviewer, title, author, error
 
@@ -132,7 +132,7 @@ def get_reviewer(html_text):
         reviewer = html_text.find('div', {'class': 'entry-meta'}).a.text
     except:
         #print('reviewer issue')
-        reviewer = 'N/A', 'reviewer issue'
+        reviewer = 'N/A', 'reviewer issue/'
     return reviewer, ''
 
 
@@ -142,17 +142,17 @@ def get_new_titleauthor(html_text):
         details = html_text.find('div', {'class': 'hide-for-mobile-large'})
     except:
         #print("problem with title author details")
-        return None, None, "problem with title author details"
+        return None, None, "problem with title author details/"
     try:
         title = details.h6.em.text
     except AttributeError:
         #print("No title found")
-        return None, None, "No title found"
+        return None, None, "No title found/"
     try:
         author = details.find('p', {'class': 'small'}).a.text
     except AttributeError:
         #print("No author found")
-        return title, None, "No author found"
+        return title, None, "No author found/"
     return title, author, ''
 
 
@@ -168,7 +168,7 @@ def get_new_genres(html_text):
             'div', {'class': 'callout'}).find_all('a')[1:]]
     except AttributeError:
         #print('issue with genres')
-        return '', 'issue with genres'
+        return '', 'issue with genres/'
     return ' '.join(genres), ''
 
 
@@ -183,8 +183,8 @@ def get_new_pubyear(html_text):
         pub_info = html_text.find('div', {'class': 'featured'}).find(
                    'p', {'class': 'pub'}).text
     except AttributeError:
-        print('no publication info found')
-        return None, 'no publication info found'
+        #print('no publication info found')
+        return None, 'no publication info found/'
     pub_years = re.findall(r'\d{4}', pub_info)
     if len(pub_years) < 1:
         pub_year = None
