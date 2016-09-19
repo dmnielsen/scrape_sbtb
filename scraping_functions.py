@@ -158,7 +158,25 @@ def get_new_titleauthor(html_text):
 
 def get_old_titleauthor(html_text):
     """Return title and author for old format reviews"""
-    return '', '', ''
+    reviewbox = html_text.find(
+        'div', {'class': 'review-box'}).p.text.strip().split('\n')
+    try:
+        title_info = [s for s in reviewbox if s.lower().startswith('title')][0]
+        ind = title_info.find(':')
+        title = title_info[ind+1:].strip()
+        title_error = ''
+    except:
+        title_error = 'title error/'
+        title = ''
+    try:
+        auth_info = [s for s in reviewbox if s.lower().startswith('title')][0]
+        ind = auth_info.find(':')
+        author = auth_info[ind+1].strip()
+        author_error = ''
+    except IndexError:
+        author_error = 'no author listed'
+        author = ''
+    return title,author,title_error+author_error
 
 
 def get_new_genres(html_text):
