@@ -17,10 +17,10 @@ def scrape_info(link, date):
         info = scrape_new_format(review)
     else:
         info = scrape_old_format(review)
-        
+
     if info[-1]:
-        print(link,info[-1])
-    
+        print(link, info[-1])
+
     return info[:-1]
 
 
@@ -46,9 +46,9 @@ def scrape_new_format(review):
     reviewer, title, author, e2 = get_new_reviewertitleauthor(review)
     genres, e3 = get_new_genres(review)
     pub_year, e4 = get_new_pubyear(review)
-    
-    error = ''.join([e1,e2,e3,e4])
-    
+
+    error = ''.join([e1, e2, e3, e4])
+
     return grade, reviewer, title, author, genres, pub_year, error
 
 
@@ -59,8 +59,8 @@ def scrape_old_format(review):
     reviewer, title, author, e2 = get_old_reviewertitleauthor(review)
     genres, e3 = get_old_genres(review)
     pub_year, e4 = get_old_pubyear(review)
-    
-    error = ''.join([e1,e2,e3,e4])
+
+    error = ''.join([e1, e2, e3, e4])
 
     return grade, reviewer, title, author, genres, pub_year, error
 
@@ -72,7 +72,6 @@ def get_grade(html_text):
     try:
         grade = html_text.find('h1', {'class': 'grade'}).text
     except:
-        #print('grade problem')
         return 'N/A', 'grade problem/'
     return grade, ''
 
@@ -93,7 +92,7 @@ def get_new_reviewertitleauthor(html_text):
     if title is None:
         title = review_title
 
-    error = ''.join([e1,e2])
+    error = ''.join([e1, e2])
 
     return reviewer, title, author, error
 
@@ -131,7 +130,6 @@ def get_reviewer(html_text):
     try:
         reviewer = html_text.find('div', {'class': 'entry-meta'}).a.text
     except:
-        #print('reviewer issue')
         reviewer = 'N/A', 'reviewer issue/'
     return reviewer, ''
 
@@ -141,17 +139,14 @@ def get_new_titleauthor(html_text):
     try:
         details = html_text.find('div', {'class': 'hide-for-mobile-large'})
     except:
-        #print("problem with title author details")
         return None, None, "problem with title author details/"
     try:
         title = details.h6.em.text
     except AttributeError:
-        #print("No title found")
         return None, None, "No title found/"
     try:
         author = details.find('p', {'class': 'small'}).a.text
     except AttributeError:
-        #print("No author found")
         return title, None, "No author found/"
     return title, author, ''
 
@@ -176,7 +171,7 @@ def get_old_titleauthor(html_text):
     except IndexError:
         author_error = 'no author listed'
         author = ''
-    return title,author,title_error+author_error
+    return title, author, title_error+author_error
 
 
 def get_new_genres(html_text):
@@ -185,7 +180,6 @@ def get_new_genres(html_text):
         genres = [genre.text for genre in html_text.find(
             'div', {'class': 'callout'}).find_all('a')[1:]]
     except AttributeError:
-        #print('issue with genres')
         return '', 'issue with genres/'
     return ' '.join(genres), ''
 
@@ -209,7 +203,6 @@ def get_new_pubyear(html_text):
         pub_info = html_text.find('div', {'class': 'featured'}).find(
                    'p', {'class': 'pub'}).text
     except AttributeError:
-        #print('no publication info found')
         return None, 'no publication info found/'
     pub_years = re.findall(r'\d{4}', pub_info)
     if len(pub_years) < 1:
@@ -227,9 +220,9 @@ def get_old_pubyear(html_text):
     """Return publication year from new format reviews"""
     try:
         genre = html_text.find(
-        'div',{'class':'review-box'}).text.strip().split('\n')
+            'div', {'class': 'review-box'}).text.strip().split('\n')
         pub_info = [s for s in genre if s.startswith('Publication')][0]
-        pub_years = (re.findall('\d{4}',pub_info))
+        pub_years = (re.findall('\d{4}', pub_info))
         if len(pub_years) < 1:
             pub_year = None
             err = "no pub_year/"
@@ -244,8 +237,8 @@ def get_old_pubyear(html_text):
         err = 'no publication info found (index)'
     except AttributeError:
         pub_year = None
-        err = 'no publication info found (attribute)'        
-        
+        err = 'no publication info found (attribute)'
+
     return pub_year, err
 
 
