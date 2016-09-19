@@ -225,7 +225,28 @@ def get_new_pubyear(html_text):
 
 def get_old_pubyear(html_text):
     """Return publication year from new format reviews"""
-    return '', ''
+    try:
+        genre = html_text.find(
+        'div',{'class':'review-box'}).text.strip().split('\n')
+        pub_info = [s for s in genre if s.startswith('Publication')][0]
+        pub_years = (re.findall('\d{4}',pub_info))
+        if len(pub_years) < 1:
+            pub_year = None
+            err = "no pub_year/"
+        elif len(pub_years) > 1:
+            err = "multiple pub years/"
+            pub_year = min(pub_years)
+        else:
+            err = ''
+            pub_year = pub_years[0]
+    except IndexError:
+        pub_year = None
+        err = 'no publication info found (index)'
+    except AttributeError:
+        pub_year = None
+        err = 'no publication info found (attribute)'        
+        
+    return pub_year, err
 
 
 if __name__ == '__main__':
