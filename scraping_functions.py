@@ -192,7 +192,15 @@ def get_new_genres(html_text):
 
 def get_old_genres(html_text):
     """Return genres from new format reviews"""
-    return '', ''
+    try:
+        genre = html_text.find(
+            'div', {'class': 'review-box'}).text.strip().split('\n')
+        genres = [genre[-1].split(':')[1]]
+    except IndexError:
+        return [''], 'Genre problem (index)/'
+    except AttributeError:
+        return [''], 'other genre problem (attribute)'
+    return genres, ''
 
 
 def get_new_pubyear(html_text):
