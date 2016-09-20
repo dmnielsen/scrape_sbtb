@@ -122,7 +122,17 @@ def get_old_reviewertitleauthor(html_text):
 
 def get_old_guestreview(html_text):
     """Returns reviewer info, title,author for old format guest reviews"""
-    return '', '', '', ''
+    titleauthor = html_text.find('h1', {'class': 'entry-title'}).text
+    ind = (titleauthor.lower().rfind('by'))
+    if ind < 0:
+        err = 'guest reviewer issue/'
+        reviewer=''
+    else:
+        reviewer = titleauthor[ind+3:]
+        err = ''
+    title, author, ta_err = get_old_titleauthor(html_text)
+    print(reviewer, title, author, err+ta_err)
+    return reviewer, title, author, err+ta_err
 
 
 def get_reviewer(html_text):
