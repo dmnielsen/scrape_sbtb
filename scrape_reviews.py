@@ -22,7 +22,8 @@ if __name__ == '__main__':
 
 
     conn = sql.connect('sbtb.db',timeout=100)
-    cur = conn.cursor()
+    cur_iter = conn.cursor()
+    cur_update = conn.cursor()
     
     try:
         iters = int(sys.argv[1])
@@ -36,12 +37,13 @@ if __name__ == '__main__':
         
     i = 0
     
+    cur_iter.execute('SELECT Id,Link,Review_date \
+                From Reviews WHERE Grade IS NULL;')
+    
     while i < iters:
-        
-        cur.execute('SELECT Id,Link,Review_date \
-                    From Reviews WHERE Grade IS NULL;')
-        
-        Id, link, date = cur.fetchone()
+               
+        Id, link, date = cur_iter.fetchone()
+        # print(Id,link,date)
         
         if link == None:
             break
@@ -49,12 +51,12 @@ if __name__ == '__main__':
         grade,reviewer,guest,title,author,genres,pub_year = \
         scrape.scrape_info(link,date)
 
-        #print(grade,reviewer,guest,title,author,genres,pub_year,'\n')
+        # print(grade,reviewer,guest,title,author,genres,pub_year,'\n')
         
-        cur.execute('UPDATE Reviews SET Reviewer=?,Grade=?,Title=?,Author=?,\
-                     Pub_year=?,genres=?,guest_review=? WHERE Id=?;',\
-                     (reviewer,grade,title,author,pub_year,\
-                     ' '.join(genres),guest,Id))
+        cur_update.execute('UPDATE Reviews SET Reviewer=?,Grade=?,Title=?,\
+                    Author=?,Pub_year=?,genres=?,guest_review=? WHERE Id=?;',\
+                    (reviewer,grade,title,author,pub_year,\
+                    ' '.join(genres),guest,Id))
 
         if i%10 == 0:
             print(i)
