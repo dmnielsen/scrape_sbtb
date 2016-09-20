@@ -45,12 +45,13 @@ if __name__ == '__main__':
                 From Reviews WHERE Grade IS NULL;')
     
     while i < iters:
-               
-        Id, link, date = cur_iter.fetchone()
-        # print(Id,link,date)
         
-        if link == None:
+        try:   
+            Id, link, date = cur_iter.fetchone()
+        except TypeError:
+            print("All done!")
             break
+        # print(Id,link,date)
         
         try:
     
@@ -58,6 +59,7 @@ if __name__ == '__main__':
             scrape.scrape_info(link,date)
         except AttributeError:
             print("AttributeError on: {}".format(link))
+
             # try running the review through with the new format 
             try:
                 grade,reviewer,guest,title,author,genres,pub_year = \
@@ -66,6 +68,7 @@ if __name__ == '__main__':
                 print(e)
                 grade = ''
                 reviewer,guest,title,author,genres,pub_year = reset_variables(6)
+
         except Error as e:
             print("Error on {}".format(link))
             print(e)
