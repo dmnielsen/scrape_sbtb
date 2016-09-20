@@ -47,9 +47,14 @@ if __name__ == '__main__':
         
         if link == None:
             break
+        
+        try:
     
-        grade,reviewer,guest,title,author,genres,pub_year = \
-        scrape.scrape_info(link,date)
+            grade,reviewer,guest,title,author,genres,pub_year = \
+            scrape.scrape_info(link,date)
+        except:
+            print("error on: ", link)
+            break
 
         # print(grade,reviewer,guest,title,author,genres,pub_year,'\n')
         
