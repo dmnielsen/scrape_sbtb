@@ -18,6 +18,10 @@ def input_scrape_number():
     return default
 
 
+def reset_variables(n):
+    """Resets n variables to None"""
+    return [None]*n
+
 if __name__ == '__main__':
 
 
@@ -52,8 +56,19 @@ if __name__ == '__main__':
     
             grade,reviewer,guest,title,author,genres,pub_year = \
             scrape.scrape_info(link,date)
-        except:
-            print("error on: ", link)
+        except AttributeError:
+            print("AttributeError on: {}".format(link))
+            # try running the review through with the new format 
+            try:
+                grade,reviewer,guest,title,author,genres,pub_year = \
+                scrape.scrape_info(link,'2016-09-09')
+            except Error as e:
+                print(e)
+                grade = ''
+                reviewer,guest,title,author,genres,pub_year = reset_variables(6)
+        except Error as e:
+            print("Error on {}".format(link))
+            print(e)
             break
 
         # print(grade,reviewer,guest,title,author,genres,pub_year,'\n')
