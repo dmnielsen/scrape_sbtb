@@ -29,8 +29,8 @@ def parse_webpage(link):
     Return article text
     """
     try:
-        # html = open(link, 'r')  # for testing
-        html = urllib.request.urlopen(link).read()
+        html = open(link, 'r')  # for testing
+        #html = urllib.request.urlopen(link).read()
     except:
         print('Invalid link', link)
         raise
@@ -43,26 +43,26 @@ def scrape_new_format(review):
     Returns: grade,reviewer,title,author,genres,pub_year
     """
     grade, e1 = get_grade(review)
-    reviewer, title, author, e2 = get_new_reviewertitleauthor(review)
+    reviewer, guest, title, author, e2 = get_new_reviewertitleauthor(review)
     genres, e3 = get_new_genres(review)
     pub_year, e4 = get_new_pubyear(review)
 
     error = ''.join([e1, e2, e3, e4])
 
-    return grade, reviewer, title, author, genres, pub_year, error
+    return grade, reviewer, guest, title, author, genres, pub_year, error
 
 
 def scrape_old_format(review):
     """Find and return scraped info from reviews with old format
     Returns: grade, reviewer, title, author, genres, pub_year"""
     grade, e1 = get_grade(review)
-    reviewer, title, author, e2 = get_old_reviewertitleauthor(review)
+    reviewer, guest, title, author, e2 = get_old_reviewertitleauthor(review)
     genres, e3 = get_old_genres(review)
     pub_year, e4 = get_old_pubyear(review)
 
     error = ''.join([e1, e2, e3, e4])
 
-    return grade, reviewer, title, author, genres, pub_year, error
+    return grade, reviewer, guest, title, author, genres, pub_year, error
 
 
 def get_grade(html_text):
@@ -85,6 +85,8 @@ def get_new_reviewertitleauthor(html_text):
 
     if ('guest' and 'review') in review_title.lower():
         return get_new_guestreview(html_text)
+    else:
+        guest = 0
 
     reviewer, e1 = get_reviewer(html_text)
     title, author, e2 = get_new_titleauthor(html_text)
@@ -94,7 +96,7 @@ def get_new_reviewertitleauthor(html_text):
 
     error = ''.join([e1, e2])
 
-    return reviewer, title, author, error
+    return reviewer, guest, title, author, error
 
 
 def get_new_guestreview(html_text):
@@ -102,22 +104,27 @@ def get_new_guestreview(html_text):
     If any errors occur, return descriptive string
     If no errors occur, return empty string
     """
-    return '', '', '', ''
+    return '', 1, '', '', ''
 
 
 def get_old_reviewertitleauthor(html_text):
-    """Returns reviewer, title, author for old format reviews"""
+    """Returns reviewer, title, author for old format reviews
+    If any errors occur, return descriptive string
+    If no errors occur, return empty string
+    """
     review_title = html_text.find('h1', {'class': 'entry-title'}).text
 
     if ('guest' and 'review') in review_title.lower():
         return get_old_guestreview(html_text)
+    else:
+        guest = 0
 
     reviewer, e1 = get_reviewer(html_text)
     title, author, e2 = get_old_titleauthor(html_text)
 
     error = ''.join([e1, e2])
 
-    return reviewer, title, author, error
+    return reviewer, guest, title, author, error
 
 
 def get_old_guestreview(html_text):
@@ -132,7 +139,7 @@ def get_old_guestreview(html_text):
         err = ''
     title, author, ta_err = get_old_titleauthor(html_text)
     print(reviewer, title, author, err+ta_err)
-    return reviewer, title, author, err+ta_err
+    return reviewer, 1, title, author, err+ta_err
 
 
 def get_reviewer(html_text):
