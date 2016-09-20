@@ -153,8 +153,8 @@ def parse_webpage(link):
     return review
 
 if __name__ == '__main__':
-    """
-    #COMMENT OUT FOR TESTING 
+
+
     conn = sql.connect('sbtb.db',timeout=100)
     cur = conn.cursor()
     
@@ -205,17 +205,4 @@ if __name__ == '__main__':
     
     conn.commit()
     
-    """
-    links = glob.glob('testfiles/new_book*')
     
-    for link in links:
-        print(link)
-        review = BeautifulSoup(open(link,'r'),'lxml').article
-        
-        grade = get_grade(review)
-        reviewer,title,author = get_reviewertitleauthor(review)
-        
-        genres,pub_year = get_genre_pubyear(review)
-        
-        #print(grade,reviewer,genres,title,author,pub_year,'\n')
-    #"""
