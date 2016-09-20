@@ -29,8 +29,8 @@ def parse_webpage(link):
     Return article text
     """
     try:
-        # html = open(link, 'r')  # for testing
-        html = urllib.request.urlopen(link).read()
+        html = open(link, 'r')  # for testing
+        # html = urllib.request.urlopen(link).read()
     except:
         print('Invalid link', link)
         raise
@@ -138,7 +138,6 @@ def get_old_guestreview(html_text):
         reviewer = titleauthor[ind+3:]
         err = ''
     title, author, ta_err = get_old_titleauthor(html_text)
-    print(reviewer, title, author, err+ta_err)
     return reviewer, 1, title, author, err+ta_err
 
 
@@ -181,9 +180,9 @@ def get_old_titleauthor(html_text):
         title_error = 'title error/'
         title = ''
     try:
-        auth_info = [s for s in reviewbox if s.lower().startswith('title')][0]
+        auth_info = [s for s in reviewbox if s.lower().startswith('author')][0]
         ind = auth_info.find(':')
-        author = auth_info[ind+1].strip()
+        author = auth_info[ind+1:].strip()
         author_error = ''
     except IndexError:
         author_error = 'no author listed'
