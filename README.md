@@ -16,6 +16,8 @@ was added. Should outsource the whole process into functions.
 2016-09-20: I've added a "guest_review" column. 0 = not a guest review,
 1 = guest review.
 
+New format guest review is still not configured.
+
 TODO:
 * ~~In titleauthor occasional "By" is used rather than "by" update code
 to catch this~~
