@@ -18,6 +18,9 @@ was added. Should outsource the whole process into functions.
 
 New format guest review is still not configured.
 
+Strange issue: found one "new format" review _well_ into the old
+review timeline ()
+
 TODO:
 * ~~In titleauthor occasional "By" is used rather than "by" update code
 to catch this~~
@@ -35,3 +38,4 @@ attributed "Guest Reviews"
 * get rid of overflow lines by removing unpacking
 * ~~convert genres into string before returning~~
 * create two cursors: one to iterate thru table, one to update table
+* **authors are not showing up with new scraping functions**
