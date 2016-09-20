@@ -13,6 +13,9 @@ writes it to the table. Review format was redone somewhere along the way
 it checks for the old formatting. A restructure to look for guest reviews first
 was added. Should outsource the whole process into functions.
 
+2016-09-20: I've added a "guest_review" column. 0 = not a guest review,
+1 = guest review.
+
 TODO:
 * ~~In titleauthor occasional "By" is used rather than "by" update code
 to catch this~~
