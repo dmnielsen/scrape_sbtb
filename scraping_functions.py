@@ -29,8 +29,8 @@ def parse_webpage(link):
     Return article text
     """
     try:
-        html = open(link, 'r')  # for testing
-        # html = urllib.request.urlopen(link).read()
+        # html = open(link, 'r')  # for testing
+        html = urllib.request.urlopen(link).read()
     except:
         print('Invalid link', link)
         raise
