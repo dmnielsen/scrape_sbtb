@@ -29,8 +29,8 @@ def parse_webpage(link):
     Return article text
     """
     try:
-        html = open(link, 'r')  # for testing
-        # html = urllib.request.urlopen(link).read()
+        # html = open(link, 'r')  # for testing
+        html = urllib.request.urlopen(link).read()
     except:
         print('Invalid link', link)
         raise
@@ -223,13 +223,14 @@ def get_new_pubyear(html_text):
     pub_years = re.findall(r'\d{4}', pub_info)
     if len(pub_years) < 1:
         pub_year = None
-        print("no pub_year")
+        err = "no pub_year/"
     elif len(pub_years) > 1:
-        print("multiple pub_years: ", pub_years)
+        err = "multiple pub_years/"
         pub_year = min(pub_years)
     else:
         pub_year = pub_years[0]
-    return pub_year, ''
+        err = ""
+    return pub_year, err
 
 
 def get_old_pubyear(html_text):
