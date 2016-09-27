@@ -29,8 +29,8 @@ def parse_webpage(link):
     Return article text
     """
     try:
-        # html = open(link, 'r')  # for testing
-        html = urllib.request.urlopen(link).read()
+        html = open(link, 'r')  # for testing
+        # html = urllib.request.urlopen(link).read()
     except:
         print('Invalid link', link)
         raise
@@ -104,7 +104,13 @@ def get_new_guestreview(html_text):
     If any errors occur, return descriptive string
     If no errors occur, return empty string
     """
-    return '', 1, '', '', ''
+    review_title = html_text.find('h1', {'class': 'entry-title'}).text
+    reviewer, err = get_reviewer(html_text)
+    if not reviewer == 'Guest Reviewer':
+        reviewer = ''
+        err = 'not under guest reviewer account/'
+    title, author, ta_err = get_new_titleauthor(html_text)
+    return reviewer, 1, title, author, err+ta_err
 
 
 def get_old_reviewertitleauthor(html_text):
