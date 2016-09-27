@@ -233,7 +233,7 @@ def get_new_pubyear(html_text):
         pub_year = None
         err = "no pub_year/"
     elif len(pub_years) > 1:
-        err = "multiple pub_years/"
+        err = ""
         pub_year = min(pub_years)
     else:
         pub_year = pub_years[0]
@@ -252,7 +252,7 @@ def get_old_pubyear(html_text):
             pub_year = None
             err = "no pub_year/"
         elif len(pub_years) > 1:
-            err = "multiple pub years/"
+            err = ""
             pub_year = min(pub_years)
         else:
             err = ''
