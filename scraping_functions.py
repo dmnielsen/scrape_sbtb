@@ -202,8 +202,8 @@ def get_new_genres(html_text):
         genres = [genre.text for genre in html_text.find(
             'div', {'class': 'callout'}).find_all('a')[1:]]
     except AttributeError:
-        return '', 'issue with genres/'
-    return ' '.join(genres), ''
+        return [''], 'issue with genres/'
+    return genres, ''
 
 
 def get_old_genres(html_text):
