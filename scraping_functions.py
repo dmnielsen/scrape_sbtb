@@ -83,7 +83,7 @@ def get_new_reviewertitleauthor(html_text):
     """
     review_title = html_text.find('h1', {'class': 'entry-title'}).text
 
-    if ('guest' and 'review') in review_title.lower():
+    if ('guest review') in review_title.lower():
         return get_new_guestreview(html_text)
     else:
         guest = 0
@@ -122,7 +122,7 @@ def get_old_reviewertitleauthor(html_text):
     """
     review_title = html_text.find('h1', {'class': 'entry-title'}).text
 
-    if ('guest' and 'review') in review_title.lower():
+    if ('guest review') in review_title.lower():
         return get_old_guestreview(html_text)
     else:
         guest = 0
