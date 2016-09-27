@@ -56,9 +56,7 @@ if __name__ == '__main__':
             grade, reviewer, guest, title, author, genres, pub_year = \
                 scrape.scrape_info(link, date)
         except AttributeError:
-            print("AttributeError on: {}".format(link))
-
-            # try running the review through with the new format
+            # try scraping review with new format
             try:
                 grade, reviewer, guest, title, author, genres, pub_year = \
                     scrape.scrape_info(link, '2016-09-09')
