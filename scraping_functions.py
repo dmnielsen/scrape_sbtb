@@ -110,8 +110,8 @@ def get_new_guestreview(html_text):
         reviewer = ''
         err = 'not under guest reviewer account/'
     title, author, ta_err = get_new_titleauthor(html_text)
-    if title in None:
-        title = revbiew_title
+    if title is None:
+        title = review_title
     return reviewer, 1, title, author, err+ta_err
 
 
