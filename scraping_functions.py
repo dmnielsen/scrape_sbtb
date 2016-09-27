@@ -13,7 +13,7 @@ def scrape_info(link, date):
     """
     review = parse_webpage(link)
 
-    if date > '2014-10-13':
+    if date > '2014-10-28':
         info = scrape_new_format(review)
     else:
         info = scrape_old_format(review)
