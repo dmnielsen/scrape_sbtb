@@ -21,6 +21,9 @@ New format guest review is still not configured.
 Strange issue: found one "new format" review _well_ into the old
 review timeline ()
 
+2016-09-28: cleaned up reviewer information with SQL
+within table.
+
 TODO:
 * ~~In titleauthor occasional "By" is used rather than "by" update code
 to catch this~~
@@ -34,8 +37,9 @@ attributed "Guest Reviews"
   - New format
 * ~~change number of entries to scrape a command line argument~~
 * update booklinks.py to add new reviews to table
-* change scrape format of "new" styled posts to get title/author info
-* get rid of overflow lines by removing unpacking
+* ~~change scrape format of "new" styled posts to get
+ title/author info~~
+* ~~get rid of overflow lines by removing unpacking~~
 * ~~convert genres into string before returning~~
-* create two cursors: one to iterate thru table, one to update table
-* **authors are not showing up with new scraping functions**
+* ~~create two cursors: one to iterate thru table, one to update table~~
+* ~~authors are not showing up with new scraping functions~~
