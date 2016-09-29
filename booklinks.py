@@ -31,11 +31,13 @@ if __name__ == '__main__':
     
     cur.execute('''CREATE TABLE IF NOT EXISTS Reviews (\
     Id INTEGER UNIQUE, Review_date TEXT, Link TEXT, Reviewer TEXT,\
-    Grade TEXT, Title TEXT, Author TEXT, Pub_year INTEGER, Genres TEXT);''')
+    Grade TEXT, Title TEXT, Author TEXT, Pub_year INTEGER, Genres TEXT,\
+    Guest_review INTEGER);''')
     
     start = 0
     cur.execute('SELECT max(id) FROM Reviews;')
     
+    # get max ID used in existing table
     try:
         row = cur.fetchone()
         if row[0] is not None:
@@ -44,12 +46,21 @@ if __name__ == '__main__':
     except:
         start = 0
         row = None
+           
+    # find newest review in table
+    cur.execute('SELECT max(review_date), link FROM Reviews;')
+    try:
+        upto_date,upto_link = cur.fetchone()
+        print(upto_date,upto_link)
+    except:
+        print('Error querying table for most recent review')
+        
     
     baseurl = 'http://smartbitchestrashybooks.com/review/book/page/'
     
     # hardwired in on num. of pages, there is definitely 
     # a better way to do this
-    for i in range(0,61): #60 total pages: 06 July 2016
+    for i in range(0,60): #60 total pages: 06 July 2016
         if i%5 == 0: print(i)
         url = baseurl+str(i)+'/'
         html = urllib.request.urlopen(url).read()
@@ -71,14 +82,23 @@ if __name__ == '__main__':
                 # Set date to a blank value
                 date = ' '
                 print('Error',meta_info)
-                
             
-            cur.execute('INSERT INTO Reviews (id,Review_date,link)\
-            VALUES (?, ?, ?)',(start,date,link))
+            # stop when we are upto last link scrape    
+            if link == upto_link:
+                break
+            else:    
+                cur.execute('INSERT INTO Reviews (id,Review_date,link)\
+                VALUES (?, ?, ?)',(start,date,link))
+        
+        # need to check again to exit out of outside loop
+        # (this should be folded into a function so less clumsy)
+        if link == upto_link:
+            break
 
         # only commit every 5 indicies to speed up process
         if i%5 == 0:    
             conn.commit()
+        
         time.sleep(1)
 
     conn.commit()  # commit anything still outstanding
