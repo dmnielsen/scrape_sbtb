@@ -4,3 +4,4 @@ testfiles/*
 entrylinks.txt
 sbtb.db
 __pycache__/
+.ipynb*
