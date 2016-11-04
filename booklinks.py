@@ -42,7 +42,7 @@ if __name__ == '__main__':
         row = cur.fetchone()
         if row[0] is not None:
             start = row[0]
-            print(row)
+            print('largest ID: {}'.format(row[0]))
     except:
         start = 0
         row = None
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     cur.execute('SELECT max(review_date), link FROM Reviews;')
     try:
         upto_date,upto_link = cur.fetchone()
-        print(upto_date,upto_link)
+        print('last review: {}, {}'.format(upto_date,upto_link))
     except:
         print('Error querying table for most recent review')
         
