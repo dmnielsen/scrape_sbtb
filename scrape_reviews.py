@@ -76,7 +76,7 @@ if __name__ == '__main__':
         cur_update.execute('UPDATE Reviews SET Reviewer=?, Grade=?, Title=?,\
                     Author=?, Pub_year=?, genres=?, guest_review=? \
                     WHERE Id=?;', (reviewer, grade, title, author, pub_year,\
-                    ', '.join(genres), guest, Id))
+                    '; '.join(genres), guest, Id))
 
         if i % 10 == 0:
             print(i)
