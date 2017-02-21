@@ -1,6 +1,7 @@
 .DS_Store
 
 testfiles/*
+sandbox/*
 entrylinks.txt
 sbtb.db
 __pycache__/
