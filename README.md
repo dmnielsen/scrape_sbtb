@@ -2,9 +2,13 @@ Trying out web scraping with Beautiful Soup by characterizing the reviews on
 [Smart Bitches Trashy Books](http://smartbitchestrashybooks.com/).
 
 **booklinks.py** harvests all review links from the book review index on the
-site. Currently it is set up to go through on one pass and grab all of them and
-the number of pages that it looks through is hardwired in, which is not ideal.
-Data are stored in an SQL table.
+site. Two modes:
+1. if ID column is unpopulated, it will go through on one pass and grab all
+of them and the number of pages that it looks through is hardwired in,
+which is not ideal. Data are stored in an SQL table.
+2. if the ID column is populated, it finds the MAX(review_date) and associated
+link and adds reviews until it finds that review. 
+
 
 **scrape_reviews.py** goes through each link and pulls information on the
 reviewer, grade, book title, book author, publication year, and genres and
