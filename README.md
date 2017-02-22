@@ -7,7 +7,7 @@ site. Two modes:
 of them and the number of pages that it looks through is hardwired in,
 which is not ideal. Data are stored in an SQL table.
 2. if the ID column is populated, it finds the MAX(review_date) and associated
-link and adds reviews until it finds that review. 
+link and adds reviews until it finds that review.
 
 
 **scrape_reviews.py** goes through each link and pulls information on the
@@ -23,6 +23,10 @@ was added. Should outsource the whole process into functions.
 2016-09-28: cleaned up reviewer information with SQL within table.
 
 2016-09-29: Updated booklinks.py to update SQL table with new reviews
+
+2017-02-21: I see the issue that I'm having with genres. In the new format
+"themes" are also linked (and not differentiated in the html) in the callout,
+so I'm pulling not just genres, but also the listed themes. 
 
 TODO:
 * ~~In titleauthor occasional "By" is used rather than "by" update code
