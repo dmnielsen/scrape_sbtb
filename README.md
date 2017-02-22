@@ -26,7 +26,7 @@ was added. Should outsource the whole process into functions.
 
 2017-02-21: I see the issue that I'm having with genres. In the new format
 "themes" are also linked (and not differentiated in the html) in the callout,
-so I'm pulling not just genres, but also the listed themes. 
+so I'm pulling not just genres, but also the listed themes.
 
 TODO:
 * ~~In titleauthor occasional "By" is used rather than "by" update code
@@ -40,3 +40,5 @@ to catch this~~
 * ~~get rid of overflow lines by removing unpacking~~
 * ~~convert genres into string before returning~~
 * ~~create two cursors: one to iterate thru table, one to update table~~
+* differentiate between genres and themes (only pull genres? should I pull
+  themes?)
