@@ -28,6 +28,15 @@ was added. Should outsource the whole process into functions.
 "themes" are also linked (and not differentiated in the html) in the callout,
 so I'm pulling not just genres, but also the listed themes.
 
+2017-03-13: The scraping functions differentiate between genre and theme now!
+Huzzah! I reset the grades to Null for the entries I want to rerun and have
+done a few. While paging through a couple results, I discovered that there
+are also now occasional "archetypes." My code ignores these and will not
+capture them.
+
+Also, I've added a test mode in the scraping functions so I don't have
+to manually toggle between how the files are read
+
 TODO:
 * ~~In titleauthor occasional "By" is used rather than "by" update code
 to catch this~~
@@ -40,5 +49,5 @@ to catch this~~
 * ~~get rid of overflow lines by removing unpacking~~
 * ~~convert genres into string before returning~~
 * ~~create two cursors: one to iterate thru table, one to update table~~
-* differentiate between genres and themes (only pull genres? should I pull
-  themes?)
+* ~~differentiate between genres and themes (only pull genres? should I pull
+  themes?)~~
