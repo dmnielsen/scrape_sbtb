@@ -179,8 +179,12 @@ def get_new_titleauthor(html_text):
 
 def get_old_titleauthor(html_text):
     """Return title and author for old format reviews"""
-    reviewbox = html_text.find(
-        'div', {'class': 'review-box'}).p.text.strip().split('\n')
+    try:
+        reviewbox = html_text.find(
+            'div', {'class': 'review-box'}).p.text.strip().split('\n')
+    except AttributeError:
+        # might be an updated entry, try new format
+        return get_new_titleauthor(html_text)
     try:
         title_info = [s for s in reviewbox if s.lower().startswith('title')][0]
         ind = title_info.find(':')
@@ -226,11 +230,14 @@ def get_old_genres(html_text):
         genre = html_text.find(
             'div', {'class': 'review-box'}).text.strip().split('\n')
         genres = [genre[-1].split(':')[1]]
+        themes = ['']
     except IndexError:
-        return [''], 'Genre problem (index)/'
+        return [''], [''], 'Genre problem (index)/'
     except AttributeError:
-        return [''], [''], 'other genre problem (attribute)'
-    return genres, [''], ''
+        # might be an updated review entry, try new format
+        return get_new_genres(html_text)
+        #return [''], [''], 'other genre problem (attribute)'
+    return genres, themes, ''
 
 
 def get_new_pubyear(html_text):
@@ -273,8 +280,10 @@ def get_old_pubyear(html_text):
         pub_year = None
         err = 'no publication info found (index)'
     except AttributeError:
-        pub_year = None
-        err = 'no publication info found (attribute)'
+        # might be an updated entry, try new format
+        return get_new_pubyear(html_text)
+        #pub_year = None
+        #err = 'no publication info found (attribute)'
 
     return pub_year, err
 
