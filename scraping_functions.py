@@ -42,16 +42,16 @@ def parse_webpage(link, test):
 
 def scrape_new_format(review):
     """Find and return scraped info from reviews with new format
-    Returns: grade,reviewer,title,author,genres,pub_year
+    Returns: grade,reviewer,guest_review,title,author,genres,themes,pub_year
     """
     grade, e1 = get_grade(review)
     reviewer, guest, title, author, e2 = get_new_reviewertitleauthor(review)
-    genres, e3 = get_new_genres(review)
+    genres, themes, e3 = get_new_genres(review)
     pub_year, e4 = get_new_pubyear(review)
 
     error = ''.join([e1, e2, e3, e4])
 
-    return grade, reviewer, guest, title, author, genres, pub_year, error
+    return grade, reviewer, guest, title, author, genres, themes, pub_year, error
 
 
 def scrape_old_format(review):
@@ -59,12 +59,12 @@ def scrape_old_format(review):
     Returns: grade, reviewer, title, author, genres, pub_year"""
     grade, e1 = get_grade(review)
     reviewer, guest, title, author, e2 = get_old_reviewertitleauthor(review)
-    genres, e3 = get_old_genres(review)
+    genres, themes, e3 = get_old_genres(review)
     pub_year, e4 = get_old_pubyear(review)
 
     error = ''.join([e1, e2, e3, e4])
 
-    return grade, reviewer, guest, title, author, genres, pub_year, error
+    return grade, reviewer, guest, title, author, genres, themes, pub_year, error
 
 
 def get_grade(html_text):
@@ -203,11 +203,21 @@ def get_old_titleauthor(html_text):
 def get_new_genres(html_text):
     """Return genres from new format reviews"""
     try:
-        genres = [genre.text for genre in html_text.find(
-            'div', {'class': 'callout'}).find_all('a')[1:]]
+        # drop first link, it's the grade
+        genre_theme = html_text.find('div',{'class':'callout'}).find_all('a')[1:]
+        genres, themes = [], []
+        for gt in genre_theme:
+            if '/genre/' in gt.get('href'):
+                genres.append(gt.text)
+            elif '/theme/' in gt.get('href'):
+                themes.append(gt.text)
+        if len(themes) == 0:
+            themes = ['']
+        #genres = [genre.text for genre in html_text.find(
+        #    'div', {'class': 'callout'}).find_all('a')[1:]]
     except AttributeError:
-        return [''], 'issue with genres/'
-    return genres, ''
+        return [''], [''], 'issue with genres/'
+    return genres, themes, ''
 
 
 def get_old_genres(html_text):
@@ -219,8 +229,8 @@ def get_old_genres(html_text):
     except IndexError:
         return [''], 'Genre problem (index)/'
     except AttributeError:
-        return [''], 'other genre problem (attribute)'
-    return genres, ''
+        return [''], [''], 'other genre problem (attribute)'
+    return genres, [''], ''
 
 
 def get_new_pubyear(html_text):

@@ -3,7 +3,7 @@ import scraping_functions as scrape
 
 if __name__ == '__main__':
 
-    links = glob.glob('testfiles/*book*')
+    links = glob.glob('testfiles/new_*book*')
 
     for link in links:
         print(link)
@@ -12,7 +12,7 @@ if __name__ == '__main__':
         else:
             date = '2013-01-01'
 
-        grade,reviewer,guest,title,author,genres,pub_year = \
+        grade,reviewer,guest,title,author,genres,themes,pub_year = \
         scrape.scrape_info(link,date,test=True)
 
-        print(grade,reviewer,guest,title,author,genres,pub_year,'\n')
+        print(grade,reviewer,guest,title,author,genres,themes,pub_year,'\n')

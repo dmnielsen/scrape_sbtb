@@ -53,17 +53,17 @@ if __name__ == '__main__':
         # print(Id, link, date)
 
         try:
-            grade, reviewer, guest, title, author, genres, pub_year = \
+            grade, reviewer, guest, title, author, genres, themes, pub_year = \
                 scrape.scrape_info(link, date)
         except AttributeError:
             # try scraping review with new format
             try:
-                grade, reviewer, guest, title, author, genres, pub_year = \
+                grade, reviewer, guest, title, author, genres, themes, pub_year = \
                     scrape.scrape_info(link, '2016-09-09')
             except Error as e:
                 print(e)
                 grade = ''
-                reviewer, guest, title, author, genres, pub_year = \
+                reviewer, guest, title, author, genres, themes, pub_year = \
                     reset_variables(6)
 
         except Error as e:
@@ -74,9 +74,9 @@ if __name__ == '__main__':
         # print(grade,reviewer,guest,title,author,genres,pub_year,'\n')
 
         cur_update.execute('UPDATE Reviews SET Reviewer=?, Grade=?, Title=?,\
-                    Author=?, Pub_year=?, genres=?, guest_review=? \
+                    Author=?, Pub_year=?, genres=?, themes=?, guest_review=? \
                     WHERE Id=?;', (reviewer, grade, title, author, pub_year,\
-                    '; '.join(genres), guest, Id))
+                    '; '.join(genres), '; '.join(themes), guest, Id))
 
         if i % 10 == 0:
             print(i)
