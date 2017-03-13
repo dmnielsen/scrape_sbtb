@@ -5,13 +5,13 @@ import sqlite3 as sql
 import re
 
 
-def scrape_info(link, date):
+def scrape_info(link, date, test=False):
     """Find and return review data from webpage
     Returns:
     grade,reviewer,title,author,pub_year as strings
     genres as list
     """
-    review = parse_webpage(link)
+    review = parse_webpage(link, test)
 
     if date > '2014-10-28':
         info = scrape_new_format(review)
@@ -24,16 +24,18 @@ def scrape_info(link, date):
     return info[:-1]
 
 
-def parse_webpage(link):
+def parse_webpage(link, test):
     """Parse html of given link
     Return article text
     """
-    try:
-        # html = open(link, 'r')  # for testing
-        html = urllib.request.urlopen(link).read()
-    except:
-        print('Invalid link', link)
-        raise
+    if test:
+        html = open(link, 'r')
+    else:
+        try:
+            html = urllib.request.urlopen(link).read()
+        except:
+            print('Invalid link', link)
+            raise
     review = BeautifulSoup(html, 'lxml').article
     return review
 
