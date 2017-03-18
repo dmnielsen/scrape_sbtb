@@ -91,6 +91,8 @@ def get_new_reviewertitleauthor(html_text):
         guest = 0
 
     reviewer, e1 = get_reviewer(html_text)
+    if reviewer == 'Guest Reviewer':
+        guest = 1
     title, author, e2 = get_new_titleauthor(html_text)
 
     if title is None:
