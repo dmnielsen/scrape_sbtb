@@ -1,5 +1,7 @@
 Trying out web scraping with Beautiful Soup by characterizing the reviews on
 [Smart Bitches Trashy Books](http://smartbitchestrashybooks.com/).
+I've worked on and off again on this project as other things have come
+up. 
 
 **booklinks.py** harvests all review links from the book review index on the
 site. Two modes:
