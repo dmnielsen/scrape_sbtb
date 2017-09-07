@@ -53,5 +53,9 @@ to catch this~~
 * ~~create two cursors: one to iterate thru table, one to update table~~
 * ~~differentiate between genres and themes (only pull genres? should I pull
   themes?)~~
-* Still some issues with genres and themes. Looks like not everything
-  that needed to be re-scraped was.
+* Still some issues with genres and themes.
+  * Not everything that needed to be was re-scraped, so some themes are
+    still contaminating genres
+  * Many of the genres have a leading space
+  * Found one early format book rant that has the author name populating
+    the Genre column (id=641)
