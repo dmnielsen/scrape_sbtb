@@ -1,7 +1,7 @@
 Trying out web scraping with Beautiful Soup by characterizing the reviews on
 [Smart Bitches Trashy Books](http://smartbitchestrashybooks.com/).
 I've worked on and off again on this project as other things have come
-up. 
+up.
 
 **booklinks.py** harvests all review links from the book review index on the
 site. Two modes:
@@ -53,3 +53,5 @@ to catch this~~
 * ~~create two cursors: one to iterate thru table, one to update table~~
 * ~~differentiate between genres and themes (only pull genres? should I pull
   themes?)~~
+* Still some issues with genres and themes. Looks like not everything
+  that needed to be re-scraped was.
