@@ -54,8 +54,8 @@ to catch this~~
 * ~~differentiate between genres and themes (only pull genres? should I pull
   themes?)~~
 * Still some issues with genres and themes.
-  * Not everything that needed to be was re-scraped, so some themes are
-    still contaminating genres
+  * ~~Not everything that needed to be was re-scraped, so some themes are
+    still contaminating genres~~
   * ~~Many of the genres have a leading space~~ Fix with str.strip()
   * ~~Found one early format book rant that has the author name populating
     the Genre column (id=641)~~ It's just one, I'm fixing it by hand
@@ -63,3 +63,12 @@ to catch this~~
   scrape number and hit "Enter" to accept default value of 10, it
   gives ```Error: must be integer``` but otherwise does behave
   as expected
+
+### Database notes
+I'm going to note if I change anything by hand. There are a couple
+one-off issues that I'm seeing that are a bit too specialized to
+account for by changing my code, so I'm going to change them via SQL
+and note them here.
+* ID=641, removed genre listing that was only the author name
+* ID=993, change grade DNF to N/A. The post is explanatory about
+  future DNFs, not about any book in particular.
