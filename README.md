@@ -63,6 +63,8 @@ to catch this~~
   scrape number and hit "Enter" to accept default value of 10, it
   gives ```Error: must be integer``` but otherwise does behave
   as expected
+* If there are no genres, the field is set to an empty string.
+  Should probably be left as null
 
 ### Database notes
 I'm going to note if I change anything by hand. There are a couple
