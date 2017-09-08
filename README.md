@@ -59,3 +59,7 @@ to catch this~~
   * ~~Many of the genres have a leading space~~ Fix with str.strip()
   * ~~Found one early format book rant that has the author name populating
     the Genre column (id=641)~~ It's just one, I'm fixing it by hand
+* When using ```scrape_reviews.py```, if you hit don't include a
+  scrape number and hit "Enter" to accept default value of 10, it
+  gives ```Error: must be integer``` but otherwise does behave
+  as expected
