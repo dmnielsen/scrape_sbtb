@@ -56,6 +56,6 @@ to catch this~~
 * Still some issues with genres and themes.
   * Not everything that needed to be was re-scraped, so some themes are
     still contaminating genres
-  * Many of the genres have a leading space
+  * ~~Many of the genres have a leading space~~ Fix with str.strip()
   * Found one early format book rant that has the author name populating
     the Genre column (id=641)
