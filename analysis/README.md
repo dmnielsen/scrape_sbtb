@@ -1,6 +1,6 @@
 
 # SBTB grade analysis
-Do an overview of the data pulled, looking at grade distribution and genres for site and by reviewer.
+This is a markdown version of the jupyter notebook ```analysis_sbtb.ipynb```. This goes through an overview of the data pulled, looking at grade distribution and genres for site and by reviewer.
 
 
 ```python
@@ -34,21 +34,21 @@ conn.close()
     2   3  2016-06-30  http://smartbitchestrashybooks.com/reviews/ple...   
     3   4  2016-06-28  http://smartbitchestrashybooks.com/reviews/all...   
     4   5  2016-06-23  http://smartbitchestrashybooks.com/reviews/emi...   
-    
+
             Reviewer Grade                     Title            Author  Pub_year  \
     0          Elyse    C-          Make Me Love You   Johanna Lindsey    2016.0   
     1       Carrie S    B+           Heroine Complex        Sarah Kuhn    2016.0   
     2       SB Sarah    B-         Please Release Me      Rhoda Baxter    2015.0   
     3  Redheadedgirl     A                    All In  Simona Ahrnstedt    2016.0   
     4       SB Sarah    B+  Emily and the Dark Angel       Jo Beverley    1992.0   
-    
+
                                                Genres  guest_review  \
     0                   Romance; Historical: European             0   
     1                         Science Fiction/Fantasy             0   
     2  Women's Fiction; Romance; Contemporary Romance             0   
     3                   Romance; Contemporary Romance             0   
     4          Romance; Historical: European; Regency             0   
-    
+
                                            Themes  
     0  Marriage of Convenience; Enemies to Lovers  
     1                                              
@@ -152,7 +152,7 @@ grades_count = grades.groupby('grade_num').count(); #print((grades_count['Id']))
 #print(grades_count)
 #grades_count.sort_values(['Id']).plot(kind='barh',legend=False,grid=True)
 
-y_pos = np.arange(len(grades_count)); 
+y_pos = np.arange(len(grades_count));
 y_labels = [grade_dict_invert[k] for k in grades_count.index]
 #print(y_labels)
 
@@ -186,7 +186,7 @@ plt.show()
 
 ## Plot grade distribution by reviewer
 
-Now we want to look at grade distributions for each reviewer. 
+Now we want to look at grade distributions for each reviewer.
 I would expect Guest Reviews are going to be bimodal (very positive or very negative).
 
 
@@ -211,15 +211,15 @@ for i, reviewer in enumerate(reviewer_count.index):
     grades = grades[['grade_num','Id']]
     grades_count = grades.groupby('grade_num').count(); #print(grades_count)
     grades_count = fill_grade_gaps(grades_count)
-    
+
     ax = fig.add_subplot(4,2,7-i)
     ax.set_frame_on(False)
-    
-    y_pos = np.arange(len(grades_count)); 
+
+    y_pos = np.arange(len(grades_count));
     ax.barh(y_pos, grades_count['Id'], align='center', color='grey', lw=0)
-    
+
     ax.set_title(reviewer)
-    
+
     ax.set_yticks(y_pos)
     ax.set_yticklabels(y_labels)
 
@@ -232,11 +232,11 @@ for i, reviewer in enumerate(reviewer_count.index):
     ax.xaxis.set_ticks_position('bottom')
     ax.xaxis.set_tick_params(width=2, length=7, color='grey', labelsize=12)
 
-    
-    
-    
+
+
+
     #grades_count.plot(kind='bar',legend=False,grid=True,title=reviewer)
-    
+
 plt.show()
 ```
 
@@ -248,7 +248,7 @@ plt.show()
 
 ## Calculate the review GPA
 
-Ignore any of the "Miscellaneous" category entries, mostly those are "Rant" and "Squee" reviews. It's like an audit. 
+Ignore any of the "Miscellaneous" category entries, mostly those are "Rant" and "Squee" reviews. It's like an audit.
 
 This calculation could be put into the title of the above bar charts.
 
@@ -287,12 +287,12 @@ for genre in genresdb:
     for g in genre_list:
         genres.setdefault(g, 0)
         genres[g] += 1
-        
+
 pprint.pprint(genres)
 ```
 
     Total reviews: 1261
-    
+
     {'Anthology': 2,
      'Art': 2,
      'Chick Lit': 13,
@@ -343,10 +343,10 @@ pprint.pprint(genres)
 
 ```python
 for i, reviewer in enumerate(reviewer_count.index):
-    genresdb = df[(df['Reviewer']==reviewer) & (df['grade_num'] > -1)]['Genres']; 
-    
+    genresdb = df[(df['Reviewer']==reviewer) & (df['grade_num'] > -1)]['Genres'];
+
     print("\nReviewer: {}".format(reviewer))
-    
+
     genres = {}
     for genre in genresdb:
         genre_list = [g.strip() for g in genre.split(';')]
@@ -357,7 +357,7 @@ for i, reviewer in enumerate(reviewer_count.index):
     pprint.pprint(reviewer_genres.sort_values(by='count', ascending=False)[:5])
 ```
 
-    
+
     Reviewer: Amanda
                              count
     Romance                     34
@@ -365,7 +365,7 @@ for i, reviewer in enumerate(reviewer_count.index):
     Erotica/Erotic Romance      12
     Paranormal                   6
     Science Fiction/Fantasy      5
-    
+
     Reviewer: Candy
                              count
     Historical                  23
@@ -373,7 +373,7 @@ for i, reviewer in enumerate(reviewer_count.index):
     Contemporary Romance        10
     Paranormal                   8
     Literary Fiction             3
-    
+
     Reviewer: Guest Reviewer
                             count
     Romance                    23
@@ -381,7 +381,7 @@ for i, reviewer in enumerate(reviewer_count.index):
     Historical                  9
     Erotica/Erotic Romance      6
     GLBT                        6
-    
+
     Reviewer: Redheadedgirl
                           count
     Romance                  52
@@ -389,7 +389,7 @@ for i, reviewer in enumerate(reviewer_count.index):
     Historical               27
     Contemporary Romance     13
     Nonfiction                8
-    
+
     Reviewer: Elyse
                           count
     Romance                 114
@@ -397,7 +397,7 @@ for i, reviewer in enumerate(reviewer_count.index):
     Historical: European     43
     Romantic Suspense        26
     Mystery/Thriller         24
-    
+
     Reviewer: SB Sarah
                           count
     Contemporary Romance    131
@@ -405,7 +405,7 @@ for i, reviewer in enumerate(reviewer_count.index):
     Romance                  51
     Paranormal               35
     Young Adult              26
-    
+
     Reviewer: Carrie S
                              count
     Science Fiction/Fantasy    154
