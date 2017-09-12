@@ -274,9 +274,9 @@ for i, reviewer in enumerate(reviewer_count.index):
 
 ## Find top genres reviewed
 
-I believe "Romance" might be one of those genres, so that might need to be kicked out if it's the top genre for all reviewers. There might be issues with how genres were done in the past versus now.
+I believe "Romance" might be one of those genres, so that might need to be kicked out if it's the top genre for all reviewers. There might be consistency issues with how genres were done in the past versus now.
 
-Multi-genre books have genres separated by semicolons. First, let's do the whole site, then by reviewer. Looping does not feel like the ideal, but the multi-genre thing is a killer.
+Multi-genre books have genres separated by semicolons. First, let's do the whole site, then by reviewer. Looping does not feel ideal, but the multi-genre thing is a killer.
 
 Let's only look at graded reviews, so those not assigned a "miscellaneous" grade.
 
