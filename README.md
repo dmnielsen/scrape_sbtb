@@ -53,10 +53,8 @@ to catch this~~
 * ~~create two cursors: one to iterate thru table, one to update table~~
 * ~~differentiate between genres and themes (only pull genres? should I pull
   themes?)~~
-* Still some issues with genres and themes.
-  * ~~Not everything that needed to be was re-scraped, so some themes are
-    still contaminating genres~~
-  * ~~Many of the genres have a leading space~~ Fix with str.strip()
+* ~~Still some issues with genres and themes.~~
+  * ~~some themes are still contaminating genres~~
   * ~~Found one early format book rant that has the author name populating
     the Genre column (id=641)~~ It's just one, I'm fixing it by hand
 * When using ```scrape_reviews.py```, if you hit don't include a
