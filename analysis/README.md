@@ -32,59 +32,8 @@ This plots the grade distribution for the full site including all reviews by all
 
 ## Plot grade distribution by reviewer
 
-Now we want to look at grade distributions for each reviewer.
-I would expect Guest Reviews are going to be bimodal (very positive or very negative).
-
-
-```python
-def fill_grade_gaps(grade_df):
-    # Want all possible grades, any not in dataframe will be set to zero
-    if len(grade_df) == len(grade_dict_invert):
-        return grade_df
-    df_zeros = pd.DataFrame(0, index=sorted(list(grade_dict_invert.keys())), columns=['Id'])
-    return grade_df.add(df_zeros, fill_value=0)
-```
-
-
-```python
-reviewers = df['Reviewer'].unique()
-
-fig = plt.figure(figsize=(15,25))
-
-for i, reviewer in enumerate(reviewer_count.index):
-    #print(reviewer)
-    grades = df[df['Reviewer']== reviewer]
-    grades = grades[['grade_num','Id']]
-    grades_count = grades.groupby('grade_num').count(); #print(grades_count)
-    grades_count = fill_grade_gaps(grades_count)
-
-    ax = fig.add_subplot(4,2,7-i)
-    ax.set_frame_on(False)
-
-    y_pos = np.arange(len(grades_count));
-    ax.barh(y_pos, grades_count['Id'], align='center', color='grey', lw=0)
-
-    ax.set_title(reviewer)
-
-    ax.set_yticks(y_pos)
-    ax.set_yticklabels(y_labels)
-
-    ax.set_xlabel('# reviews', size=14)
-    ax.set_ylabel('Review grade', size=14)
-
-    ax.yaxis.set_ticks_position('none')
-    ax.yaxis.set_tick_params(labelsize=12)
-
-    ax.xaxis.set_ticks_position('bottom')
-    ax.xaxis.set_tick_params(width=2, length=7, color='grey', labelsize=12)
-
-
-
-
-    #grades_count.plot(kind='bar',legend=False,grid=True,title=reviewer)
-
-plt.show()
-```
+Now we can look at grade distributions for each reviewer.
+I was expecting Guest Reviews to be bimodal (very positive or very negative) since people probably write in when they have a strong reaction. They trended more positive than I'd expected, but to get a better feel for these, the "Rant" and "Squee" reviews should be separated from the "Misc" category.
 
 
 ![png](output_13_0.png)
