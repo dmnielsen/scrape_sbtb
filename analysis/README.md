@@ -64,20 +64,11 @@ I believe "Romance" might be one of those genres, so that might need to be kicke
 
 Multi-genre books have genres separated by semicolons. First, let's do the whole site, then by reviewer. Looping does not feel ideal, but the multi-genre thing is a killer.
 
-Let's only look at graded reviews, so those not assigned a "miscellaneous" grade.
+Let's only look at graded reviews, so those in "Misc" category.
+
+I should bar chart this and sort the genres.
 
 
-```python
-genresdb = df[df['grade_num'] > -1]['Genres']; print("Total reviews: {}\n".format(genresdb.count()))
-genres = {}
-for genre in genresdb:
-    genre_list = [g.strip() for g in genre.split(';')]
-    for g in genre_list:
-        genres.setdefault(g, 0)
-        genres[g] += 1
-
-pprint.pprint(genres)
-```
 
     Total reviews: 1261
 
@@ -128,25 +119,11 @@ pprint.pprint(genres)
 
 ## Find top 5 genres for each reviewer
 
-
-```python
-for i, reviewer in enumerate(reviewer_count.index):
-    genresdb = df[(df['Reviewer']==reviewer) & (df['grade_num'] > -1)]['Genres'];
-
-    print("\nReviewer: {}".format(reviewer))
-
-    genres = {}
-    for genre in genresdb:
-        genre_list = [g.strip() for g in genre.split(';')]
-        for g in genre_list:
-            genres.setdefault(g, 0)
-            genres[g] += 1
-    reviewer_genres = pd.DataFrame.from_dict(genres, orient='index').rename(columns={0:'count'})
-    pprint.pprint(reviewer_genres.sort_values(by='count', ascending=False)[:5])
-```
+For each unique reviewer, these are the top 5 reviewed genres.
 
 
-    Reviewer: Amanda
+**Amanda**
+
                              count
     Romance                     34
     Contemporary Romance        22
@@ -154,7 +131,8 @@ for i, reviewer in enumerate(reviewer_count.index):
     Paranormal                   6
     Science Fiction/Fantasy      5
 
-    Reviewer: Candy
+**Candy**
+
                              count
     Historical                  23
     Science Fiction/Fantasy     10
@@ -162,7 +140,8 @@ for i, reviewer in enumerate(reviewer_count.index):
     Paranormal                   8
     Literary Fiction             3
 
-    Reviewer: Guest Reviewer
+**Guest Reviewer**
+
                             count
     Romance                    23
     Contemporary Romance       19
@@ -170,7 +149,8 @@ for i, reviewer in enumerate(reviewer_count.index):
     Erotica/Erotic Romance      6
     GLBT                        6
 
-    Reviewer: Redheadedgirl
+**Redheadedgirl**
+
                           count
     Romance                  52
     Historical: European     32
@@ -178,7 +158,8 @@ for i, reviewer in enumerate(reviewer_count.index):
     Contemporary Romance     13
     Nonfiction                8
 
-    Reviewer: Elyse
+**Elyse**
+
                           count
     Romance                 114
     Contemporary Romance     54
@@ -186,7 +167,8 @@ for i, reviewer in enumerate(reviewer_count.index):
     Romantic Suspense        26
     Mystery/Thriller         24
 
-    Reviewer: SB Sarah
+**SB Sarah**
+
                           count
     Contemporary Romance    131
     Historical               70
@@ -194,16 +176,10 @@ for i, reviewer in enumerate(reviewer_count.index):
     Paranormal               35
     Young Adult              26
 
-    Reviewer: Carrie S
+**Carrie S**
                              count
     Science Fiction/Fantasy    154
     Romance                     88
     Nonfiction                  64
     Historical: European        45
     Young Adult                 34
-
-
-
-```python
-
-```
