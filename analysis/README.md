@@ -1,70 +1,12 @@
 
 # SBTB grade analysis
-This is a markdown version of the jupyter notebook ```analysis_sbtb.ipynb```, while I'm working, I hate saving doing version control on the output of jupyter notebooks, so this serves as an output checkpoint.
+This is a markdown summary of the output of the jupyter notebook ```analysis_sbtb.ipynb```. While I'm working, I hate saving doing version control on the output of jupyter notebooks, so this serves as an output checkpoint.
 
 This goes through an overview of the data pulled, looking at grade distribution and genres for site and by reviewer.
 
 
-```python
-%matplotlib inline
-
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-import sqlite3 as sql
-import pprint
-```
-
----
-
-## Load data
-
-
-```python
-# open database, import data into pandas
-conn = sql.connect("sbtb.db")
-df = pd.read_sql_query("SELECT * from Reviews;", conn)
-
-conn.close()
-```
-
----
-
 ## Plot reviewer distribution
-Number of reviews by each unique reviewer
-
-
-```python
-#print(df['Reviewer'].unique())
-reviewers = df[['Reviewer','Id']]
-reviewer_count = reviewers.groupby('Reviewer').count().sort_values('Id')
-#print(reviewer_count)
-#reviewer_count.sort_values(['Id']).plot(kind='barh',sort_columns=True,legend=False)
-
-y_pos = np.arange(len(reviewer_count))
-
-fig = plt.figure(figsize=(8.5, 5))
-ax = fig.add_subplot(111)
-ax.set_frame_on(False)
-
-ax.barh(y_pos, reviewer_count['Id'], align='center', color='grey', lw=0)
-ax.set_yticks(y_pos)
-ax.set_yticklabels(reviewer_count.index)
-
-ax.set_xlabel('# reviews', size=14)
-ax.set_ylabel('Reviewer', size=14)
-
-ax.yaxis.set_ticks_position('none')
-ax.yaxis.set_tick_params(labelsize=12)
-
-ax.xaxis.set_ticks_position('bottom')
-ax.xaxis.set_tick_params(width=2, length=7, color='grey', labelsize=12)
-
-
-plt.show()
-
-```
-
+Number of reviews by each unique reviewer. Carrie S' reviews *include* her guest reviews before she was a regular contributor.
 
 ![png](output_5_0.png)
 
@@ -73,81 +15,14 @@ plt.show()
 
 ## Rendering grades
 
-For proper rendering of column names, grades should be converted to numbers. Make an inverted grade dictionary with ```-1``` set to 'Misc' for plotting ease. Saved in a new column ```grade_num```.
+Grading scale is a 5 point scale +/- 0.3 for plus and minus so that I can set "DNF" to zero.
 
-Let's use a 5 point scale +/- 0.3 for plus and minus.
-
-
-```python
-#print(df.Grade.unique())
-grade_dict = {
-    'A+': 5.3,
-    'A' : 5.0,
-    'A-': 4.7,
-    'B+': 4.3,
-    'B' : 4.0,
-    'B-': 3.7,
-    'C+': 3.3,
-    'C' : 3.0,
-    'C-': 2.7,
-    'D+': 2.3,
-    'D' : 2.0,
-    'D-': 1.7,
-    'F+': 1.3,
-    'F' : 1.0,
-    'DNF' : 0.,
-    'Rant' : -1,
-    'Squee' : -1,
-    'N/A' : -1
-}
-
-grade_dict_invert = {v: k for k, v in grade_dict.items()}
-grade_dict_invert[-1] = 'Misc'
-```
-
-
-```python
-for grade in grade_dict:
-    df.loc[df["Grade"] == grade,"grade_num"] = grade_dict[grade]
-```
+Non-graded reviews are given a category of "Misc" and assigned a numerical score of -1. These reviews include "Rant" and "Squee" reviews, as well as the "N/A" reviews. Some "N/A" reviews were miscategorized and don't belong in the book review section. Others were non-graded reviews.
 
 ---
 
 ## Plot grade distribution
-Full site, all reviews by all reviewers
-
-
-```python
-grades = df[['grade_num','Id']]
-grades_count = grades.groupby('grade_num').count(); #print((grades_count['Id']))
-#print(grades_count)
-#grades_count.sort_values(['Id']).plot(kind='barh',legend=False,grid=True)
-
-y_pos = np.arange(len(grades_count));
-y_labels = [grade_dict_invert[k] for k in grades_count.index]
-#print(y_labels)
-
-fig = plt.figure(figsize=(8.5, 6))
-ax = fig.add_subplot(111)
-ax.set_frame_on(False)
-
-ax.barh(y_pos, grades_count['Id'], align='center', color='grey', lw=0)
-ax.set_yticks(y_pos)
-ax.set_yticklabels(y_labels)
-
-ax.set_xlabel('# reviews', size=14)
-ax.set_ylabel('Review grade', size=14)
-
-ax.yaxis.set_ticks_position('none')
-ax.yaxis.set_tick_params(labelsize=12)
-
-ax.xaxis.set_ticks_position('bottom')
-ax.xaxis.set_tick_params(width=2, length=7, color='grey', labelsize=12)
-plt.show()
-
-
-#grades_count.plot(kind='barh',legend=False,grid=True)
-```
+This plots the grade distribution for the full site including all reviews by all reviewers.
 
 
 ![png](output_10_0.png)
