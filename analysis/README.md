@@ -119,7 +119,7 @@ Let's only look at graded reviews, so those in "Misc" category.
 
 ## Find top 5 genres for each reviewer
 
-For each unique reviewer, these are the top 5 reviewed genres.
+For each unique reviewer, these are the top 5 reviewed genres. Like above, this only includes *graded* reviews.
 
 
 **Amanda**
