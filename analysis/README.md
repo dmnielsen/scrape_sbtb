@@ -43,16 +43,9 @@ I was expecting Guest Reviews to be bimodal (very positive or very negative) sin
 
 ## Calculate the review GPA
 
-Ignore any of the "Miscellaneous" category entries, mostly those are "Rant" and "Squee" reviews. It's like an audit.
+Ignore any of the "Miscellaneous" category entries, mostly those are "Rant" and "Squee" reviews. Treat those like an audit.
 
 This calculation could be put into the title of the above bar charts.
-
-
-```python
-for i, reviewer in enumerate(reviewer_count.index):
-    grades = df[(df['Reviewer']==reviewer) & (df['grade_num']>-1)]['grade_num']
-    print('{} GPA: {:.2f}'.format(reviewer, grades.sum()/grades.count()))
-```
 
     Amanda GPA: 3.62
     Candy GPA: 3.37
