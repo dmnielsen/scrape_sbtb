@@ -25,39 +25,8 @@ import pprint
 conn = sql.connect("sbtb.db")
 df = pd.read_sql_query("SELECT * from Reviews;", conn)
 
-print(df.head())
-
 conn.close()
 ```
-
-       Id Review_date                                               Link  \
-    0   1  2016-07-06  http://smartbitchestrashybooks.com/reviews/mak...   
-    1   2  2016-07-05  http://smartbitchestrashybooks.com/reviews/her...   
-    2   3  2016-06-30  http://smartbitchestrashybooks.com/reviews/ple...   
-    3   4  2016-06-28  http://smartbitchestrashybooks.com/reviews/all...   
-    4   5  2016-06-23  http://smartbitchestrashybooks.com/reviews/emi...   
-
-            Reviewer Grade                     Title            Author  Pub_year  \
-    0          Elyse    C-          Make Me Love You   Johanna Lindsey    2016.0   
-    1       Carrie S    B+           Heroine Complex        Sarah Kuhn    2016.0   
-    2       SB Sarah    B-         Please Release Me      Rhoda Baxter    2015.0   
-    3  Redheadedgirl     A                    All In  Simona Ahrnstedt    2016.0   
-    4       SB Sarah    B+  Emily and the Dark Angel       Jo Beverley    1992.0   
-
-                                               Genres  guest_review  \
-    0                   Romance; Historical: European             0   
-    1                         Science Fiction/Fantasy             0   
-    2  Women's Fiction; Romance; Contemporary Romance             0   
-    3                   Romance; Contemporary Romance             0   
-    4          Romance; Historical: European; Regency             0   
-
-                                           Themes  
-    0  Marriage of Convenience; Enemies to Lovers  
-    1                                              
-    2                                              
-    3                           Enemies to Lovers  
-    4        Small Town; Crush; Opposites Attract  
-
 
 ---
 
