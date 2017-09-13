@@ -66,7 +66,7 @@ Multi-genre books have genres separated by semicolons. First, let's do the whole
 
 Let's only look at graded reviews, so those in "Misc" category.
 
-I should bar chart this and sort the genres.
+**I should bar chart this and sort the genres.**
 
 
 
