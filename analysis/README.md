@@ -177,6 +177,7 @@ For each unique reviewer, these are the top 5 reviewed genres.
     Young Adult              26
 
 **Carrie S**
+
                              count
     Science Fiction/Fantasy    154
     Romance                     88
