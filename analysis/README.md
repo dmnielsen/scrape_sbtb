@@ -1,6 +1,6 @@
 
 # SBTB grade analysis
-This is a markdown summary of the output of the jupyter notebook ```analysis_sbtb.ipynb```. While I'm working, I hate saving doing version control on the output of jupyter notebooks, so this serves as an output checkpoint.
+This is a markdown summary of the output of the jupyter notebook ```analysis_sbtb.ipynb```. While I'm working, I hate saving doing version control on the output of jupyter notebooks, so this serves as an output checkpoint. This should be converted to a project page in the near future.
 
 This goes through an overview of the data pulled, looking at grade distribution and genres for site and by reviewer.
 
