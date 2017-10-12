@@ -24,6 +24,10 @@ Book review format was redesigned and implemented 14 October 2014;
 code first tries scraping by assuming the new formatting, and if that fails,
 it checks for the old formatting.
 
+**scraping_functions.py**
+
+**test_scraping_functions.py**
+
 ### Database notes
 I'm going to note if I change anything by hand. There are a couple
 one-off issues that I'm seeing that are a bit too specialized to
