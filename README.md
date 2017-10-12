@@ -24,25 +24,6 @@ Book review format was redesigned and implemented 14 October 2014;
 code first tries scraping by assuming the new formatting, and if that fails,
 it checks for the old formatting.
 
-2016-09-20: I've added a "guest_review" column. 0 = not a guest review,
-1 = guest review.
-
-2016-09-28: cleaned up reviewer information with SQL within table.
-
-2016-09-29: Updated booklinks.py to update SQL table with new reviews
-
-2017-02-21: I see the issue that I'm having with genres. In the new format
-"themes" are also linked (and not differentiated in the html) in the callout,
-so I'm pulling not just genres, but also the listed themes.
-
-2017-03-13: The scraping functions differentiate between genre and theme now!
-Huzzah! I reset the grades to Null for the entries I want to rerun and have
-done a few. While paging through a couple results, I discovered that there
-are also now occasional "archetypes." My code ignores these and will not
-capture them.
-
-Also, I've added a test mode in the scraping functions so I don't have
-to manually toggle between how the files are read
 
 TODO:
 * ~~In titleauthor occasional "By" is used rather than "by" update code
@@ -77,3 +58,24 @@ and note them here.
 * ID=641, removed genre listing that was only the author name
 * ID=993, change grade DNF to N/A. The post is explanatory about
   future DNFs, not about any book in particular.
+
+### Update notes
+2016-09-20: I've added a "guest_review" column. 0 = not a guest review,
+1 = guest review.
+
+2016-09-28: cleaned up reviewer information with SQL within table.
+
+2016-09-29: Updated booklinks.py to update SQL table with new reviews
+
+2017-02-21: I see the issue that I'm having with genres. In the new format
+"themes" are also linked (and not differentiated in the html) in the callout,
+so I'm pulling not just genres, but also the listed themes.
+
+2017-03-13: The scraping functions differentiate between genre and theme now!
+Huzzah! I reset the grades to Null for the entries I want to rerun and have
+done a few. While paging through a couple results, I discovered that there
+are also now occasional "archetypes." My code ignores these and will not
+capture them.
+
+Also, I've added a test mode in the scraping functions so I don't have
+to manually toggle between how the files are read
