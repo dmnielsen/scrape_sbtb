@@ -24,32 +24,6 @@ Book review format was redesigned and implemented 14 October 2014;
 code first tries scraping by assuming the new formatting, and if that fails,
 it checks for the old formatting.
 
-
-TODO:
-* ~~In titleauthor occasional "By" is used rather than "by" update code
-to catch this~~
-* ~~Update pieces to be held in functions rather than inline~~
-* Set up error log that is maintained so I know which rows need fixing
-* ~~change number of entries to scrape a command line argument~~
-* ~~update booklinks.py to add new reviews to table~~
-* ~~change scrape format of "new" styled posts to get
- title/author info~~
-* ~~get rid of overflow lines by removing unpacking~~
-* ~~convert genres into string before returning~~
-* ~~create two cursors: one to iterate thru table, one to update table~~
-* ~~differentiate between genres and themes (only pull genres? should I pull
-  themes?)~~
-* ~~Still some issues with genres and themes.~~
-  * ~~some themes are still contaminating genres~~
-  * ~~Found one early format book rant that has the author name populating
-    the Genre column (id=641)~~ It's just one, I'm fixing it by hand
-* When using ```scrape_reviews.py```, if you hit don't include a
-  scrape number and hit "Enter" to accept default value of 10, it
-  gives ```Error: must be integer``` but otherwise does behave
-  as expected
-* If there are no genres, the field is set to an empty string.
-  Should probably be left as null
-
 ### Database notes
 I'm going to note if I change anything by hand. There are a couple
 one-off issues that I'm seeing that are a bit too specialized to
