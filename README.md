@@ -32,6 +32,7 @@ and note them here.
 * ID=641, removed genre listing that was only the author name
 * ID=993, change grade DNF to N/A. The post is explanatory about
   future DNFs, not about any book in particular.
+* Standardized the spelling of Carrie S throughout database
 
 ### Update notes
 2016-09-20: I've added a "guest_review" column. 0 = not a guest review,
