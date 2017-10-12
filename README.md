@@ -28,6 +28,8 @@ it checks for the old formatting.
 
 **test_scraping_functions.py**
 
+**analysis/**
+
 ### Database notes
 I'm going to note if I change anything by hand. There are a couple
 one-off issues that I'm seeing that are a bit too specialized to
