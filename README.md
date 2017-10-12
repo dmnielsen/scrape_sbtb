@@ -31,9 +31,9 @@ in ```scrape_reviews.py```.
 downloaded test review pages will be parsed with ```scraping_functions.py```
 before live use.
 
-**analysis/** contains a [jupyter notebook](analysis/README.md)
-with the analysis of the book reviews. The output figures of the notebook
-are summarized in the README of the directory. 
+**analysis/** contains a Jupyter notebook with the analysis of the
+book reviews. The output figures of the notebook are summarized in the
+[README](analysis/README.md) of the directory. 
 
 ### Database notes
 I'm going to note if I change anything by hand. There are a couple
