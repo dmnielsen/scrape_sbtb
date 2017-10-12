@@ -17,12 +17,12 @@ associated link. Starting at page one of the book reivew index, it scrapes
 links of full review pages until reaching the newest review in the database.
 
 
-**scrape_reviews.py** goes through each link and pulls information on the
-reviewer, grade, book title, book author, publication year, and genres and
-writes it to the table. Review format was redone somewhere along the way
-(14 October 2014), so code first looks for the new formatting, if that fails,
-it checks for the old formatting. A restructure to look for guest reviews first
-was added. Should outsource the whole process into functions.
+**scrape_reviews.py** goes through each link for the full book review and
+pulls information on the reviewer, grade, book title, book author,
+publication year, genres, and themes, and writes it to the database.
+Book review format was redesigned and implemented 14 October 2014;
+code first tries scraping by assuming the new formatting, and if that fails,
+it checks for the old formatting.
 
 2016-09-20: I've added a "guest_review" column. 0 = not a guest review,
 1 = guest review.
