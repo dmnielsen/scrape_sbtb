@@ -34,6 +34,12 @@ and note them here.
   future DNFs, not about any book in particular.
 * Standardized the spelling of Carrie S throughout database
 
+### Issues
+* When using ```scrape_reviews.py```, if you hit don't include a
+  scrape number and hit "Enter" to accept default value of 10, it
+  gives ```Error: must be integer``` but otherwise does behave
+  as expected
+
 ### Update notes
 2016-09-20: I've added a "guest_review" column. 0 = not a guest review,
 1 = guest review.
