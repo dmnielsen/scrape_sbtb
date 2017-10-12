@@ -24,11 +24,16 @@ Book review format was redesigned and implemented 14 October 2014;
 code first tries scraping by assuming the new formatting, and if that fails,
 it checks for the old formatting.
 
-**scraping_functions.py**
+**scraping_functions.py** contains all scraping functions used
+in ```scrape_reviews.py```.
 
-**test_scraping_functions.py**
+**test_scraping_functions.py** provides framework to see how locally
+downloaded test review pages will be parsed with ```scraping_functions.py```
+before live use.
 
-**analysis/**
+**analysis/** contains a [jupyter notebook](analysis/README.md)
+with the analysis of the book reviews. The output figures of the notebook
+are summarized in the README of the directory. 
 
 ### Database notes
 I'm going to note if I change anything by hand. There are a couple
