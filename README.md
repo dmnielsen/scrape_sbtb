@@ -72,10 +72,8 @@ and note them here.
 so I'm pulling not just genres, but also the listed themes.
 
 2017-03-13: The scraping functions differentiate between genre and theme now!
-Huzzah! I reset the grades to Null for the entries I want to rerun and have
-done a few. While paging through a couple results, I discovered that there
+While paging through a couple results, I discovered that there
 are also now occasional "archetypes." My code ignores these and will not
 capture them.
-
-Also, I've added a test mode in the scraping functions so I don't have
+Also, I've added a test mode for the scraping functions so I don't have
 to manually toggle between how the files are read
