@@ -42,13 +42,10 @@ and note them here.
 
 2016-09-29: Updated booklinks.py to update SQL table with new reviews
 
-2017-02-21: I see the issue that I'm having with genres. In the new format
-"themes" are also linked (and not differentiated in the html) in the callout,
-so I'm pulling not just genres, but also the listed themes.
-
 2017-03-13: The scraping functions differentiate between genre and theme now!
 While paging through a couple results, I discovered that there
 are also now occasional "archetypes." My code ignores these and will not
 capture them.
+
 Also, I've added a test mode for the scraping functions so I don't have
 to manually toggle between how the files are read
