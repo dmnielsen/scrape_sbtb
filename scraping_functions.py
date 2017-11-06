@@ -7,6 +7,7 @@ import re
 
 def scrape_info(link, date, test=False):
     """Find and return review data from webpage
+    Prints any warnings to terminal
     Returns:
     grade,reviewer,title,author,pub_year as strings
     genres as list
@@ -17,7 +18,7 @@ def scrape_info(link, date, test=False):
         info = scrape_new_format(review)
     else:
         info = scrape_old_format(review)
-
+    # Print out any warnings/errors
     if info[-1]:
         print(link, info[-1])
 
