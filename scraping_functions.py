@@ -290,6 +290,10 @@ def get_old_pubyear(html_text):
 
     return pub_year, err
 
+def get_review(html_text):
+    """Return text of review"""
+    pass
+
 
 if __name__ == '__main__':
 
