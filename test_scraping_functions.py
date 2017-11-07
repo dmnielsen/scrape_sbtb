@@ -12,7 +12,6 @@ if __name__ == '__main__':
         else:
             date = '2013-01-01'
 
-        grade,reviewer,guest,title,author,genres,themes,pub_year = \
-        scrape.scrape_info(link,date,test=True)
+        fields = scrape.scrape_info(link,date,test=True)
 
-        print(grade,reviewer,guest,title,author,genres,themes,pub_year,'\n')
+        print(' '.join(str(x) for x in fields))
