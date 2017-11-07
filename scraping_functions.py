@@ -294,7 +294,13 @@ def get_new_review_text(html_text):
     """Return text of review"""
     p = re.compile(r'<div class="callout">[\s\S]*</div>([\s\S]*)<div class="order" id="order">')
     m = p.findall(str(html_text))
-    return m[0]
+    try:
+        return m[0]
+    except IndexError:
+        # probably a non-standard review
+        # need to find alternate way to scrape review
+        return ''
+
 
     #return re.findall('<div class="callout">[\s\S]*</div>([\s\S]*)<div class="order" id="order">', str(html_text))[0]
 
