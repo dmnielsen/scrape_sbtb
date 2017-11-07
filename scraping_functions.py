@@ -290,9 +290,13 @@ def get_old_pubyear(html_text):
 
     return pub_year, err
 
-def get_review(html_text):
+def get_new_review_text(html_text):
     """Return text of review"""
-    pass
+    p = re.compile(r'<div class="callout">[\s\S]*</div>([\s\S]*)<div class="order" id="order">')
+    m = p.findall(str(html_text))
+    return m[0]
+
+    #return re.findall('<div class="callout">[\s\S]*</div>([\s\S]*)<div class="order" id="order">', str(html_text))[0]
 
 
 if __name__ == '__main__':
